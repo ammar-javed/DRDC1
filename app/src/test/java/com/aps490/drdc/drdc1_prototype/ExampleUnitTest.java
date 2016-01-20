@@ -1,4 +1,4 @@
-package com.aps490.drdc.drdc1_caf_prototype;
+package com.aps490.drdc.drdc1_prototype;
 
 import org.junit.Test;
 
