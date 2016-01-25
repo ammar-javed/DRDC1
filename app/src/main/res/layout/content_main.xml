@@ -12,7 +12,7 @@
     tools:context="com.aps490.drdc.prototype.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <!--<com.wikitude.architect.ArchitectView android:id="@+id/architectView"-->
-        <!--android:layout_width="fill_parent" android:layout_height="fill_parent"/>-->
+    <com.wikitude.architect.ArchitectView android:id="@+id/architectView"
+        android:layout_width="fill_parent" android:layout_height="fill_parent"/>
 
 </RelativeLayout>
