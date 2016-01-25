@@ -4,7 +4,6 @@ opyright: Benjamin Weiss (keyboardsurfer) https://github.com/keyboardsurfer
 # built application files
 *.apk
 *.ap_
-*.jar
 !gradle/wrapper/gradle-wrapper.jar
 
 # lint folder

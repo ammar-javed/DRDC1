@@ -12,8 +12,7 @@
     tools:context="com.aps490.drdc.prototype.MainActivity"
     tools:showIn="@layout/app_bar_main">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+    <!--<com.wikitude.architect.ArchitectView android:id="@+id/architectView"-->
+        <!--android:layout_width="fill_parent" android:layout_height="fill_parent"/>-->
+
 </RelativeLayout>
