@@ -4,5 +4,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <string name="compass_accuracy_low">Please re-calibrate compass by waving your device in a figure 8 motion.</string>
+
     <string name="action_settings">Settings</string>
 </resources>
