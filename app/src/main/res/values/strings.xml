@@ -19,9 +19,44 @@
     <string name="error_incorrect_password">This password is incorrect</string>
     <string name="error_field_required">This field is required</string>
     <string name="ModuleSelectionName">Module Selection</string>
-    <string name="Button1">Button1</string>
-    <string name="Button2">Button2</string>
+
+    <!-- STRINGS RELATED TO MODULE SELECTION -->
+    <string name="Button1">Complete Assembly</string>
+    <string name="Button2">Sub-Assembly</string>
     <string name="permission_rationale">"Contacts permissions are needed for providing email
         completions."
     </string>
+    <string name="title_activity_sub_assembly">Sub-Assembly</string>
+
+
+    <!-- STRINGS RELATED TO SUB_ASSEMBLY SELECTION -->
+    <string name="assemblies">Assemblies</string>
+    <string name="adjustments">Adjustments</string>
+    <string name="tests">Tests</string>
+    <string name="button1">Main Landing Gear Actuator</string>
+    <string name="button2">Main Landing Gear Door</string>
+    <string name="button3">Upclock</string>
+    <string name="button4">Upclock Actuator</string>
+    <string name="button5">Wheel</string>
+    <string name="button6">Wheel Door Actuator</string>
+    <string name="button7">Break System</string>
+    <string name="button8">Wheel Door Actuator Spigot</string>
+    <string name="button9">Door Link</string>
+    <string name="button10">Leg Door</string>
+    <string name="button11">Side Stay</string>
+    <string name="button12">Door Latch Mechanism  </string>
+    <string name="button13">Park Break Control </string>
+    <string name="button14">Brake, Master Cylinder </string>
+    <string name="button15">Bleeding And Functional </string>
+
+
+    <!-- STRINGS RELATED TO GET_INSTRUCTIONS SELECTION -->
+
+    <string name="title_activity_get_instructions">Instructions</string>
+
+    <string name="section_format">Instruction : %1$d</string>
+
+
+
+
 </resources>
