@@ -4,6 +4,7 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -57,11 +58,23 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
+    private Intent mServiceIntent;
+
+    /**
+     * Leap service's broadcast receiver
+     */
+    private LeapReceiver receiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        IntentFilter filter = new IntentFilter(LeapReceiver.LEAP_ACTION);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        receiver = new LeapReceiver();
+        registerReceiver(receiver, filter);
+
         // Set up the login form.
         // Read user input of email and pass
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
@@ -90,6 +103,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        mServiceIntent = new Intent(this, LeapService.class);
+        mServiceIntent.putExtra(LeapService.LEAP_THREAD_START, true);
+        this.startService(mServiceIntent);
     }
 
 
