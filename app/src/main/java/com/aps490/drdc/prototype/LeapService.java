@@ -7,11 +7,16 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+import java.io.BufferedInputStream;
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
+
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketHandler;
 
 public class LeapService extends IntentService {
 
@@ -53,46 +58,64 @@ public class LeapService extends IntentService {
 
     private class RetrieveLeapMotionDataTask extends
             AsyncTask<Void, String, Void> {
+
+        private final WebSocketConnection mConnection = new WebSocketConnection();
+
         protected Void doInBackground(Void... args) {
+
             try {
-                URL url = new URL(getString(R.string.leap_endpoint));
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
 
-                Log.i("AMMAR", "connected");
+                mConnection.connect("ws://192.168.2.24:8889", new WebSocketHandler() {
 
-                urlConnection.setRequestMethod("POST");
-                urlConnection.setDoOutput(true);
+                    @Override
+                    public void onOpen() {
+                        Log.d("AMMAR", "Status: Connected to " + R.string.leap_endpoint);
+                        mConnection.sendTextMessage("Hello, world!");
+                    }
 
-                JSONObject data = new JSONObject();
-                JSONObject response;
+                    @Override
+                    public void onTextMessage(String payload) {
+                        Log.d("AMMAR", "Got echo: " + payload);
+                    }
 
-                data.put("focused", "true");
-                data.put("background", "true");
-                data.put("enableGestures", "true");
-                Log.i("AMMAR", data.toString());
+                    @Override
+                    public void onClose(int code, String reason) {
+                        Log.d("AMMAR", "Connection lost.");
+                    }
+                });
 
-                OutputStreamWriter request = new OutputStreamWriter(urlConnection.getOutputStream());
-                Log.i("AMMAR", "Request part");
-                request.write(data.toString());
-                request.flush();
-                request.close();
-                String line = "";
-                InputStreamReader isr = new InputStreamReader(urlConnection.getInputStream());
-                BufferedReader reader = new BufferedReader(isr);
-                StringBuilder sb = new StringBuilder();
-                while ((line = reader.readLine()) != null)
-                {
-                    sb.append(line + "\n");
-                }
-                // Response from server after login process will be stored in response variable.
-                response = new JSONObject(sb.toString());
 
-                Log.i("AMMAR", "Response: " + sb.toString());
-
-                Log.i("AMMAR","end of loop");
+//                URL url = new URL(getString(R.string.leap_endpoint));
+//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
+//
+//                Log.i("AMMAR", "connected");
+//
+//                JSONObject data = new JSONObject();
+//                JSONObject response;
+//
+//                data.put("focused", "true");
+//                data.put("background", "true");
+//                data.put("enableGestures", "true");
+//                Log.i("AMMAR", data.toString());
+//
+//                BufferedInputStream iStream = new BufferedInputStream(urlConnection.getInputStream());
+//
+//                String line = "";
+//                BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
+//                StringBuilder sb = new StringBuilder();
+//                while ((line = reader.readLine()) != null)
+//                {
+//                    sb.append(line + "\n");
+//                }
+//                // Response from server after login process will be stored in response variable.
+//                response = new JSONObject(sb.toString());
+//
+//                Log.i("AMMAR", "Response: " + sb.toString());
+//
+//                Log.i("AMMAR","end of loop");
 
             } catch (Exception e) {
-                e.printStackTrace();
+                Log.e("AMMAR", e.toString());
             }
             return null;
         }
