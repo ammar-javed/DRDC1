@@ -2,29 +2,36 @@ package com.aps490.drdc.prototype;
 
 import android.app.IntentService;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.os.AsyncTask;
 import android.util.Log;
-
-import org.json.JSONObject;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.net.HttpURLConnection;
-import java.net.URI;
-import java.net.URL;
 
 import de.tavendo.autobahn.WebSocketConnection;
 import de.tavendo.autobahn.WebSocketHandler;
 
 public class LeapService extends IntentService {
 
+    /*
+     * Intent identifier for client start/stop action.
+     * boolean true to start client
+     * boolean false to stop client
+     */
     public static final String LEAP_THREAD_START = "leap.thread.start";
+
+    /*
+     * Asynchronous task which becomes the Websocket client.
+     * Serves as a nice way to turn it off when needed.
+     */
+    private RetrieveLeapMotionDataTask leapListener;
+
+    /*
+     * Leap service's broadcast receiver
+     */
+    private LeapActionReceiver receiver;
 
     /**
      * Creates an IntentService.  Invoked by your subclass's constructor.
-     *
      */
     public LeapService() {
         super("LeapServiceDRDC");
@@ -32,28 +39,51 @@ public class LeapService extends IntentService {
 
     @Override
     protected void onHandleIntent(Intent workIntent) {
+
+//        if (receiver == null) {
+//            IntentFilter filter = new IntentFilter(LeapActionReceiver.LEAP_PAYLOAD_TO_PROCESS);
+//            filter.addCategory(Intent.CATEGORY_DEFAULT);
+//            receiver = new LeapActionReceiver();
+//            registerReceiver(receiver, filter);
+//        }
         // Gets data from the incoming Intent
         Boolean run = workIntent.getBooleanExtra(LEAP_THREAD_START, false);
 
         if (run) {
-            Log.d("AMMAR", "Service: " + run);
             connectToServer();
+            broadcastIntentResponseAction(Constants.CLIENT_STARTED);
+        } else {
+            disconnectFromServer();
+            broadcastIntentResponseAction(Constants.CLIENT_STOPPED);
+//            unregisterReceiver(receiver);
+//            receiver = null;
         }
 
-        broadcastGestureAction();
     }
 
-    private void broadcastGestureAction() {
+    private void broadcastIntentResponseAction(String action_taken) {
         Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction(LeapReceiver.LEAP_ACTION);
+        broadcastIntent.setAction(Constants.LEAP_ACTION);
         broadcastIntent.addCategory(Intent.CATEGORY_DEFAULT);
-        broadcastIntent.putExtra("tapx", 23);
-        broadcastIntent.putExtra("tapy", 174);
+        broadcastIntent.putExtra(Constants.ACTION_TAKEN, action_taken);
         sendBroadcast(broadcastIntent);
     }
 
     private void connectToServer() {
-        (new RetrieveLeapMotionDataTask()).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        if (leapListener == null) {
+            leapListener = new RetrieveLeapMotionDataTask();
+            leapListener.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+        }
+    }
+
+    private void disconnectFromServer() {
+        if (leapListener != null) {
+            Log.d(Constants.TAG, "Stopping");
+            leapListener.cancel(true);
+        } else {
+            Log.d(Constants.TAG, "Null...");
+        }
     }
 
     private class RetrieveLeapMotionDataTask extends
@@ -61,62 +91,18 @@ public class LeapService extends IntentService {
 
         private final WebSocketConnection mConnection = new WebSocketConnection();
 
+        private Resources res = getResources();
+        private final String url = String.format(res.getString(R.string.leap_endpoint));
+
+//        public RetrieveLeapMotionDataTask(){
+//            IntentFilter filter = new IntentFilter(Constants.LEAP_LISTENER_STOP);
+//            filter.addCategory(Intent.CATEGORY_DEFAULT);
+//            receiver = new LeapActionReceiver();
+//            registerReceiver(receiver, filter);
+//        }
+
         protected Void doInBackground(Void... args) {
 
-            try {
-
-                mConnection.connect("ws://192.168.2.24:8889", new WebSocketHandler() {
-
-                    @Override
-                    public void onOpen() {
-                        Log.d("AMMAR", "Status: Connected to " + R.string.leap_endpoint);
-                        mConnection.sendTextMessage("Hello, world!");
-                    }
-
-                    @Override
-                    public void onTextMessage(String payload) {
-                        Log.d("AMMAR", "Got echo: " + payload);
-                    }
-
-                    @Override
-                    public void onClose(int code, String reason) {
-                        Log.d("AMMAR", "Connection lost.");
-                    }
-                });
-
-
-//                URL url = new URL(getString(R.string.leap_endpoint));
-//                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-//
-//                Log.i("AMMAR", "connected");
-//
-//                JSONObject data = new JSONObject();
-//                JSONObject response;
-//
-//                data.put("focused", "true");
-//                data.put("background", "true");
-//                data.put("enableGestures", "true");
-//                Log.i("AMMAR", data.toString());
-//
-//                BufferedInputStream iStream = new BufferedInputStream(urlConnection.getInputStream());
-//
-//                String line = "";
-//                BufferedReader reader = new BufferedReader(new InputStreamReader(iStream));
-//                StringBuilder sb = new StringBuilder();
-//                while ((line = reader.readLine()) != null)
-//                {
-//                    sb.append(line + "\n");
-//                }
-//                // Response from server after login process will be stored in response variable.
-//                response = new JSONObject(sb.toString());
-//
-//                Log.i("AMMAR", "Response: " + sb.toString());
-//
-//                Log.i("AMMAR","end of loop");
-
-            } catch (Exception e) {
-                Log.e("AMMAR", e.toString());
-            }
             return null;
         }
 

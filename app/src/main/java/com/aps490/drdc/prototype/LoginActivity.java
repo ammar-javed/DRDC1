@@ -5,6 +5,7 @@ import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.res.Resources;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -18,6 +19,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,6 +32,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketHandler;
 
 /**
  * A login screen that offers login via email/password.
@@ -58,22 +63,60 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private EditText mPasswordView;
     private View mProgressView;
     private View mLoginFormView;
-    private Intent mServiceIntent;
 
-    /**
-     * Leap service's broadcast receiver
-     */
-    private LeapReceiver receiver;
+    private WebSocketConnection mConnection;
+
+    private WebSocketHandler mConnectionHandler;
+
+    private String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        IntentFilter filter = new IntentFilter(LeapReceiver.LEAP_ACTION);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
-        receiver = new LeapReceiver();
-        registerReceiver(receiver, filter);
+        Resources res = getResources();
+        url = String.format(res.getString(R.string.leap_endpoint));
+
+        mConnection = new WebSocketConnection();
+
+        mConnectionHandler = new WebSocketHandler() {
+
+            @Override
+            public void onOpen() {
+                Log.d(Constants.TAG, "Status: Connected");
+                //mConnection.sendTextMessage("Hello, world!");
+            }
+
+            @Override
+            public void onTextMessage(String payload) {
+                Log.d(Constants.TAG, "Got echo: " + payload);
+
+                sendLeapServicePayload(payload);
+
+            }
+
+            @Override
+            public void onClose(int code, String reason) {
+                Log.d(Constants.TAG, "Connection lost.");
+            }
+
+            private void sendLeapServicePayload(String payload) {
+                Intent payloadIntent = new Intent();
+                payloadIntent.setAction(Constants.LEAP_PAYLOAD_TO_PROCESS);
+                payloadIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                payloadIntent.putExtra("payload", payload);
+                sendBroadcast(payloadIntent);
+            }
+        };
+
+        try {
+
+            mConnection.connect(url, mConnectionHandler);
+
+        } catch (Exception e) {
+            Log.e(Constants.TAG, e.toString());
+        }
 
         // Set up the login form.
         // Read user input of email and pass
@@ -103,10 +146,24 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+    }
 
-        mServiceIntent = new Intent(this, LeapService.class);
-        mServiceIntent.putExtra(LeapService.LEAP_THREAD_START, true);
-        this.startService(mServiceIntent);
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        mConnection.disconnect();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        try {
+            mConnection.connect(url, mConnectionHandler);
+        } catch (Exception e) {
+            Log.e(Constants.TAG, e.toString());
+        }
     }
 
 
