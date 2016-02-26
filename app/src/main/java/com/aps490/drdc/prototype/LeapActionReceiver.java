@@ -16,22 +16,11 @@ public class LeapActionReceiver extends BroadcastReceiver {
         String action = intent.getAction();
 
         switch (action) {
-            case Constants.LEAP_ACTION:
-                asyncClientAction(intent);
-                break;
-            case Constants.LEAP_LISTENER_STOP:
-                break;
-
             case Constants.LEAP_PAYLOAD_TO_PROCESS:
                 processPayLoad(intent);
             default:
                 break;
         }
-    }
-
-    private void asyncClientAction(Intent intent) {
-        Log.d(Constants.TAG, "[" + this.getClass().getSimpleName() + "]" + "Leap Client: " + Constants.ACTION_TAKEN +
-                " - " + intent.getStringExtra(Constants.ACTION_TAKEN));
     }
 
     private void processPayLoad(Intent intent) {

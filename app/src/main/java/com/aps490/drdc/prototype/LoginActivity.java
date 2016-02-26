@@ -6,6 +6,9 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -42,17 +45,13 @@ import de.tavendo.autobahn.WebSocketHandler;
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Communications {
 
     /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
-
-    /**
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -64,11 +63,27 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    /*
+     * Websocket connection
+     */
     private WebSocketConnection mConnection;
 
+    /*
+     * Websocket connect handler, specified in onCreate
+     */
     private WebSocketHandler mConnectionHandler;
 
+    /*
+     * Reference to URL websocket client will connect to,
+     *
+     */
     private String url;
+
+    HandlerThread mHandlerThread;
+    Looper mLooper;
+    Handler mHandler;
+
+    LeapActionReceiver mReceiver;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,15 +100,11 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onOpen() {
                 Log.d(Constants.TAG, "Status: Connected");
-                //mConnection.sendTextMessage("Hello, world!");
             }
 
             @Override
             public void onTextMessage(String payload) {
-                Log.d(Constants.TAG, "Got echo: " + payload);
-
                 sendLeapServicePayload(payload);
-
             }
 
             @Override
@@ -111,9 +122,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         };
 
         try {
-
             mConnection.connect(url, mConnectionHandler);
-
         } catch (Exception e) {
             Log.e(Constants.TAG, e.toString());
         }
@@ -121,9 +130,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Set up the login form.
         // Read user input of email and pass
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -136,6 +143,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
         // Removed attemptLogin and added our own Activity Launcher method sendMessage
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -146,23 +154,40 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Set up new thread and handler for broadcast receiver
+        // to process LeapActionReceiver.
+        mHandlerThread = new HandlerThread("LeapProcessingThread");
+        mHandlerThread.start();
+        mLooper = mHandlerThread.getLooper();
+        mHandler = new Handler(mLooper);
+
+        // Create new broadcast filter
+        IntentFilter filter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
+        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        mReceiver = new LeapActionReceiver();
+        // Will not process on main thread.
+        registerReceiver(mReceiver, filter, null, mHandler);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-
         mConnection.disconnect();
+        mConnection = null;
     }
 
     @Override
     protected void onResume() {
         super.onResume();
 
-        try {
-            mConnection.connect(url, mConnectionHandler);
-        } catch (Exception e) {
-            Log.e(Constants.TAG, e.toString());
+        if(mConnection == null) {
+            mConnection = new WebSocketConnection();
+            try {
+                mConnection.connect(url, mConnectionHandler);
+            } catch (Exception e) {
+                Log.e(Constants.TAG, e.toString());
+            }
         }
     }
 

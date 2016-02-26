@@ -46,10 +46,6 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <service
-            android:name=".LeapService"
-            android:exported="false"/>
-
         <activity
             android:name=".MainActivity"
             android:configChanges="screenSize|orientation"
