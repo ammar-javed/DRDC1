@@ -84,6 +84,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     Handler mHandler;
 
     LeapActionReceiver mReceiver;
+    IntentFilter mFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -163,20 +164,33 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mHandler = new Handler(mLooper);
 
         // Create new broadcast filter
-        IntentFilter filter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
-        filter.addCategory(Intent.CATEGORY_DEFAULT);
+        mFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
+        mFilter.addCategory(Intent.CATEGORY_DEFAULT);
         mReceiver = new LeapActionReceiver();
         // Will not process on main thread.
-        registerReceiver(mReceiver, filter, null, mHandler);
+        registerReceiver(mReceiver, mFilter, null, mHandler);
     }
 
+    /**
+     * Android Activity Lifecycle event
+     * Disconnect the websocket listener
+     * Unregister the broadcast listener to avoid memory leaks outside of application
+     */
     @Override
     protected void onPause() {
         super.onPause();
-        mConnection.disconnect();
-        mConnection = null;
+        if (mConnection != null) {
+            mConnection.disconnect();
+            unregisterReceiver(mReceiver);
+            mConnection = null;
+        }
     }
 
+    /**
+     * Android Activity Lifecycle event
+     * Restart the websocket connection and handler
+     * Register the broadcast listener for Leap action events.
+     */
     @Override
     protected void onResume() {
         super.onResume();
@@ -185,6 +199,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mConnection = new WebSocketConnection();
             try {
                 mConnection.connect(url, mConnectionHandler);
+                registerReceiver(mReceiver, mFilter, null, mHandler);
             } catch (Exception e) {
                 Log.e(Constants.TAG, e.toString());
             }
