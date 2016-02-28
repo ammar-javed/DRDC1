@@ -166,7 +166,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Create new broadcast filter
         mFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
         mFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mReceiver = new LeapActionReceiver();
+        mReceiver = new LeapActionReceiver(this.getApplicationContext());
         // Will not process on main thread.
         registerReceiver(mReceiver, mFilter, null, mHandler);
     }
