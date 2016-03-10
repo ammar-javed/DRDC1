@@ -24,6 +24,7 @@ import android.provider.ContactsContract;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
@@ -166,7 +167,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         // Create new broadcast filter
         mFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
         mFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mReceiver = new LeapActionReceiver(this.getApplicationContext());
+
+        // Pass in the root activity view as well as context.
+        mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().findViewById(R.id.login_activity));
+
         // Will not process on main thread.
         registerReceiver(mReceiver, mFilter, null, mHandler);
     }

@@ -4,8 +4,13 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
+import android.graphics.Rect;
+import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import org.json.JSONArray;
@@ -30,7 +35,10 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
     private final int leapBoundYMax = 450;
 
-    public LeapActionReceiver(Context context) {
+    // The root activity view to traverse for a screen tap hit
+    private View rootView;
+
+    public LeapActionReceiver(Context context, View view) {
         super();
         WindowManager wm = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
         Display display = wm.getDefaultDisplay();
@@ -38,6 +46,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
         display.getSize(size);
         screenWidth = size.x;
         screenHeight = size.y;
+        rootView = view;
         Log.d(Constants.TAG, "Android Screen: " + screenWidth + " x " + screenHeight);
     }
 
@@ -71,8 +80,8 @@ public class LeapActionReceiver extends BroadcastReceiver {
                 Point norm_point = normalizePointToScreenDevice(x, y);
 
                 if (norm_point != null) {
-                    Log.d(Constants.TAG, "Pointer at (" + norm_point.x +", " +
-                            norm_point.y + ")");
+                    //Log.d(Constants.TAG, "Pointer at (" + norm_point.x +", " +
+                     //       norm_point.y + ")");
                 }
             }
 
@@ -96,10 +105,27 @@ public class LeapActionReceiver extends BroadcastReceiver {
                         }
                         break;
                     case "screenTap":
-                        Log.i(Constants.TAG, "Screen Tap at " + gesture);
+                        Double tapX = gesture.getJSONArray("position").getDouble(0);
+                        Double tapY = gesture.getJSONArray("position").getDouble(1);
+
+                        Point norm_tap_coord = normalizePointToScreenDevice(tapX, tapY);
+
+                        if (norm_tap_coord != null) {
+                            Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
+
+                            View hitView = findHitView(rootView);
+
+                            if (hitView != null) {
+                                MotionEvent e = MotionEvent.obtain(SystemClock.uptimeMillis(),
+                                        SystemClock.uptimeMillis(),
+                                        MotionEvent.ACTION_UP,
+                                        norm_tap_coord.x, norm_tap_coord.y, 0);
+                                hitView.dispatchTouchEvent(e);
+                            }
+                        }
                         break;
                     default:
-                        Log.i(Constants.TAG, "Gesture not recognized yet!");
+                        //Log.i(Constants.TAG, "Gesture not recognized yet!");
                 }
             }
         } catch (Exception e) {
@@ -107,6 +133,45 @@ public class LeapActionReceiver extends BroadcastReceiver {
         }
     }
 
+    /**
+     * Try and find the first inner child view that was hit, starting from the
+     * root view of the activity.
+     * @param rV root view of activity
+     * @return view that the screen tap hit. Null if none.
+     */
+    private View findHitView(View rV) {
+        View hit = null;
+        Rect hitRect;
+        for(int i=0; i<( (ViewGroup) rV).getChildCount(); ++i) {
+            hitRect = new Rect();
+            View nextChild = ( (ViewGroup) rV).getChildAt(i);
+            try {
+                if ( ( (ViewGroup) nextChild).getChildCount() > 0) {
+                    hit = findHitView(nextChild);
+                    if (hit != null) {
+                        return hit;
+                    }
+                }
+            } catch (ClassCastException e) {
+                Log.e(Constants.TAG, e.toString());
+            }
+            nextChild.getHitRect(hitRect);
+            Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
+        }
+        return hit;
+    }
+
+    /**
+     * Normal the leap motion coordinates to the android device's pixel coordinates.
+     * Also enforces a bounding box; if the raw coordinates are not within
+     * leapBoundXMin < leapBoundXMax and
+     * leapBoundYMin < LeapBoundYMax
+     * then do not attempt to normalize the coordinate.
+     *
+     * @param xRaw raw x coordinate from Leap motion
+     * @param yRaw raw y coordinate from Leap motion
+     * @return Point with normalized x and y coordinates, or null if outside bounding box
+     */
     private Point normalizePointToScreenDevice(Double xRaw, Double yRaw) {
         
         // Leap coordinates start from ~(-350, 0, X)
