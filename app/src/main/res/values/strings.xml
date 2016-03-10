@@ -9,6 +9,11 @@
     <string name="action_settings">Settings</string>
     <string name="title_activity_login">Sign in</string>
 
+    <!-- Debug -->
+    <string name="debug_tag">AMMAR</string>
+
+    <string name="leap_endpoint">ws://100.64.206.23:8889</string>
+
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
     <string name="prompt_password">Password (optional)</string>

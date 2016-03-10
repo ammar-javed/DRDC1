@@ -4,6 +4,11 @@ import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.content.res.Resources;
+import android.os.Handler;
+import android.os.HandlerThread;
+import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.app.LoaderManager.LoaderCallbacks;
 
@@ -17,6 +22,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,15 +36,13 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.tavendo.autobahn.WebSocketConnection;
+import de.tavendo.autobahn.WebSocketHandler;
+
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor>, Communications {
-
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
-    private static final int REQUEST_READ_CONTACTS = 0;
 
     /**
      * A dummy authentication store containing known user names and passwords.
@@ -47,6 +51,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private static final String[] DUMMY_CREDENTIALS = new String[]{
             "foo@example.com:hello", "bar@example.com:world"
     };
+
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -58,16 +63,75 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    /*
+     * Websocket connection
+     */
+    private WebSocketConnection mConnection;
+
+    /*
+     * Websocket connect handler, specified in onCreate
+     */
+    private WebSocketHandler mConnectionHandler;
+
+    /*
+     * Reference to URL websocket client will connect to,
+     *
+     */
+    private String url;
+
+    HandlerThread mHandlerThread;
+    Looper mLooper;
+    Handler mHandler;
+
+    LeapActionReceiver mReceiver;
+    IntentFilter mFilter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        Resources res = getResources();
+        url = String.format(res.getString(R.string.leap_endpoint));
+
+        mConnection = new WebSocketConnection();
+
+        mConnectionHandler = new WebSocketHandler() {
+
+            @Override
+            public void onOpen() {
+                Log.d(Constants.TAG, "Status: Connected");
+            }
+
+            @Override
+            public void onTextMessage(String payload) {
+                sendLeapServicePayload(payload);
+            }
+
+            @Override
+            public void onClose(int code, String reason) {
+                Log.d(Constants.TAG, "Connection lost.");
+            }
+
+            private void sendLeapServicePayload(String payload) {
+                Intent payloadIntent = new Intent();
+                payloadIntent.setAction(Constants.LEAP_PAYLOAD_TO_PROCESS);
+                payloadIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                payloadIntent.putExtra("payload", payload);
+                sendBroadcast(payloadIntent);
+            }
+        };
+
+        try {
+            mConnection.connect(url, mConnectionHandler);
+        } catch (Exception e) {
+            Log.e(Constants.TAG, e.toString());
+        }
+
         // Set up the login form.
         // Read user input of email and pass
         mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
-
         mPasswordView = (EditText) findViewById(R.id.password);
-
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
@@ -80,6 +144,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
+
         // Removed attemptLogin and added our own Activity Launcher method sendMessage
         mEmailSignInButton.setOnClickListener(new OnClickListener() {
             @Override
@@ -90,6 +155,55 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        // Set up new thread and handler for broadcast receiver
+        // to process LeapActionReceiver.
+        mHandlerThread = new HandlerThread("LeapProcessingThread");
+        mHandlerThread.start();
+        mLooper = mHandlerThread.getLooper();
+        mHandler = new Handler(mLooper);
+
+        // Create new broadcast filter
+        mFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
+        mFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        mReceiver = new LeapActionReceiver(this.getApplicationContext());
+        // Will not process on main thread.
+        registerReceiver(mReceiver, mFilter, null, mHandler);
+    }
+
+    /**
+     * Android Activity Lifecycle event
+     * Disconnect the websocket listener
+     * Unregister the broadcast listener to avoid memory leaks outside of application
+     */
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (mConnection != null) {
+            mConnection.disconnect();
+            unregisterReceiver(mReceiver);
+            mConnection = null;
+        }
+    }
+
+    /**
+     * Android Activity Lifecycle event
+     * Restart the websocket connection and handler
+     * Register the broadcast listener for Leap action events.
+     */
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if(mConnection == null) {
+            mConnection = new WebSocketConnection();
+            try {
+                mConnection.connect(url, mConnectionHandler);
+                registerReceiver(mReceiver, mFilter, null, mHandler);
+            } catch (Exception e) {
+                Log.e(Constants.TAG, e.toString());
+            }
+        }
     }
 
 
