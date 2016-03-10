@@ -33,6 +33,7 @@
     <string name="assemblies">Assemblies</string>
     <string name="adjustments">Adjustments</string>
     <string name="tests">Tests</string>
+    <string name="next">Next</string>
     <string name="button1">Main Landing Gear Actuator</string>
     <string name="button2">Main Landing Gear Door</string>
     <string name="button3">Upclock</string>
@@ -48,6 +49,7 @@
     <string name="button13">Park Break Control </string>
     <string name="button14">Brake, Master Cylinder </string>
     <string name="button15">Bleeding And Functional </string>
+
 
 
     <!-- STRINGS RELATED TO GET_INSTRUCTIONS SELECTION -->
