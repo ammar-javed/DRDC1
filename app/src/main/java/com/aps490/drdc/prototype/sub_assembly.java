@@ -49,7 +49,7 @@ public class sub_assembly extends AppCompatActivity {
 
     public void openGetInstructions(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, get_instructions.class);
+        Intent intent = new Intent(this, Main2Activity.class);
         startActivity(intent);
     }
 
