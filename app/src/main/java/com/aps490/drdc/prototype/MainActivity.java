@@ -67,6 +67,7 @@ public class MainActivity extends AbstractArchitectCamActivity implements Naviga
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+
         /**
          //Commenting out until we want on-screen button(s)
          FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
@@ -111,6 +112,7 @@ public class MainActivity extends AbstractArchitectCamActivity implements Naviga
 
         }
     }
+
 
     @Override
     protected void onPostCreate(Bundle savedInstanceState) {
