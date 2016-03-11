@@ -5,6 +5,7 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Node;
 import org.w3c.dom.Element;
 import java.io.File;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -21,11 +22,31 @@ public class Assembly {
 
   public Assembly( String assemblyFile ) {
     try {
+      fXmlFile = new File( assemblyFile );
+      dbFactory = DocumentBuilderFactory.newInstance();
+      dBuilder = dbFactory.newDocumentBuilder();
+      doc = dBuilder.parse(fXmlFile);
+      doc.getDocumentElement().normalize();
+      this.name = doc.getDocumentElement().getAttribute("name");
+
+      //set default module
+      selectModule( getModules().get(0) );
+
+      this.instructions = getInstructionList();
+      this.instrIndex = -1;
+
+    } catch (Exception e) {
+      e.printStackTrace();
+    }
+
+  }
+
+  public Assembly( InputStream assemblyFile ) {
+    try {
       //fXmlFile = new File( assemblyFile );
       dbFactory = DocumentBuilderFactory.newInstance();
       dBuilder = dbFactory.newDocumentBuilder();
-      //doc = dBuilder.parse(fXmlFile);
-      doc = dBuilder.parse( getAssets().open( assemblyFile ));
+      doc = dBuilder.parse( assemblyFile );
       doc.getDocumentElement().normalize();
       this.name = doc.getDocumentElement().getAttribute("name");
 
