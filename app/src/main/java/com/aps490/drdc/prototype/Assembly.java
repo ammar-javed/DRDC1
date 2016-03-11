@@ -22,12 +22,13 @@ public class Assembly {
   private String name;
   private int instrIndex;
 
-  public Assembly( String assemblyPath ) {
+  public Assembly( String assemblyFile ) {
     try {
-      fXmlFile = new File( assemblyPath );
+      //fXmlFile = new File( assemblyFile );
       dbFactory = DocumentBuilderFactory.newInstance();
       dBuilder = dbFactory.newDocumentBuilder();
-      doc = dBuilder.parse(fXmlFile);
+      //doc = dBuilder.parse(fXmlFile);
+      doc = dBuilder.parse( getAssets().open( assemblyFile ));
       doc.getDocumentElement().normalize();
       this.name = doc.getDocumentElement().getAttribute("name");
 
@@ -43,9 +44,9 @@ public class Assembly {
 
   }
 
-  public Assembly( String assemblyPath, String moduleName ) {
+  public Assembly( String assemblyFile, String moduleName ) {
     try {
-      fXmlFile = new File( assemblyPath );
+      fXmlFile = new File( assemblyFile );
       dbFactory = DocumentBuilderFactory.newInstance();
       dBuilder = dbFactory.newDocumentBuilder();
       doc = dBuilder.parse(fXmlFile);

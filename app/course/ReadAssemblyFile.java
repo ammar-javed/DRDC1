@@ -11,7 +11,8 @@ public class ReadAssemblyFile {
   public static void main(String[] args) {
     try {
       //String assemblyPath = "mainWheelDoorActuator.xml";
-      String assemblyPath = Assembly.ASSEMBLY_FILE_PATH + args[0];
+      //String assemblyPath = Assembly.ASSEMBLY_FILE_PATH + args[0];
+      String assemblyPath = CourseModules.map.get("Main Landing Gear Door"); 
       Assembly assembly = new Assembly( assemblyPath ); 
       ArrayList modules = assembly.getModules();
       for( int i=0; i<modules.size();i++ ){
