@@ -1,4 +1,5 @@
 import java.util.HashMap;
+import java.util.Map;
 
 public class CourseModules{
   static final Map<String, String> map;
