@@ -1,0 +1,10 @@
+<data:assembly name="Brake System">
+  <module name="Removal and Installation">
+    <figure path="CourseFigures/6-4-12.jpg"/>
+    <instructions>
+      <step>
+        <instruction>29. For removal and installation procedures, see Figure 6-4-12.</instruction>
+      </step>
+    </instructions>
+  </module>
+</data:assembly>

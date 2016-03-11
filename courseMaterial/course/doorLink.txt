@@ -1,0 +1,24 @@
+DOOR LINK
+REMOVAL
+25. Proceed as follows (see Figure 6-4-10):
+a. Ensure that ground safety locking pins are installed to all three gears.
+b. Connect electrical ground power to aircraft. Open main wheel doors by operating hydraulic hand pump with ground servicing switch in port main gear bay selected to OPEN.
+c. Tag controls in cockpit to indicate that hydraulics are not to be operated.
+d. Disconnect door actuator (1) from upper lever of door link by removing cotter pin, nut, washer and bolt (2).
+e. Exerting pressure on door link to counteract loading of spring-box (8), remove nut, washer and screw (5).
+NOTE Spring-box may be contained during removal by using spring-box clamp (see C-12-114-000/CS-031).
+f. Permit spring-box (8) to extend and withdraw spring (9). Remove pin (6) and washers (7) to release door link from door.
+g. Disconnect female part of spring-box (8) from link by removing cotter pin, washer and pin (4). Note that two spacers (10) are located one each side of spring-box eye-end.
+h. To avoid possible damage to microswitch (12), screw microswitch out clear of door link.
+i. Break lockwire and, with door link supported, remove bolt (3). Remove door link.
+INSTALLATION 26. Proceed as follows (see Figure 6-4-10):
+a. Position door link and connect to bracket (11) with bolt (3). Lockwire bolt with wire (see Figure 1-2, Item 12).
+b. Connect female part of spring-box (8) to link with pin (4), washer and cotter pin. Note that a spacer (10) is located on each side of springbox eye-end.
+c. Install spring (9) to female half of spring-box (8) and assemble spring-box. Exerting pressure on door link to compress springbox, connect door link to door with pin (6) and washers (7), locating a washer each side of door link as shown. Lock pin (6) in position with screw (5), washer and nut.
+NOTE Spring-box may be contained during installation by using spring-box clamp (see C-12-114-000/CS-031).
+d. Connect door actuator (1) to link with bolt (2), washer and nut. Note that cotter pin will be installed subsequent to actuator adjustment.
+e. Check adjustment of door actuator, adjusting as necessary (see Paragraph 22) and adjust door down microswitch (12) (see Paragraph 56). On completion, carry out all necessary locking, including installing a cotter pin to bolt (2).
+f. Operate gear (see Paragraph 55).
+g. Disconnect and remove ground power. Install ground safety locking pins, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.
+
+

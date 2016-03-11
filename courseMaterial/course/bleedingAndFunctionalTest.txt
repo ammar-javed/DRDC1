@@ -1,0 +1,28 @@
+BLEEDING AND FUNCTIONAL TEST
+32. Proceed as follows:
+a. Disconnect hose leading to one of the two brake units and connect a hydraulic hand pump to hose.
+b. Remove bleed valve from brake unit and install an adapter connected to a hose leading to a suitable container with sufficient hydraulic fluid (see Figure 1-2, Item 14) to immerse hose end.
+c. Operate hand pump to pump fluid through unit until air-free flow is observed.
+d. Disconnect hand pump and adapter, reconnect hose and temporarily install bleed valve.
+e. Repeat Steps a to d for other brake unit. Leave adapter installed.
+NOTE Brake units shall be bled before bleeding brake system.
+·····CA··U··TI··ON·····
+Due to their location, bleed valves on the two transfer valves shall not be used.
+f. Connect a hydraulic hand pump or pressure pot to adapter at brake unit (see Step e).
+g. Remove plug (check valve) at top of brake reservoir and install an adapter connected to a hose leading to a suitable container with sufficient fluid (Item 14) to immerse hose end.
+h. Operate pressure source at brake unit to maintain flow of fluid at 82.7 kPa (12 psi) through brake system into container.
+i. Dislodge any trapped air in system by pumping and releasing LH brake pedals, followed by RH pedals, several times during procedure.
+j. Release brake pedals and continue operating pressure source until air-free flow of fluid is observed at container.
+k. Disconnect pressure source at brake unit, remove adapter and temporarily install bleed valve.
+l. Repeat Steps f, and h to k for other brake unit. Leave adapter installed.
+m. Remove hose and adapter from brake reservoir and, ensuring reservoir is topped up to correct level (see C-12-114-000/ MF-001), install plug.
+n. Operate brake pedals at each pilot position and check that there is no sponginess.
+o. Remove bleed valve from brake unit which was first serviced (see Step k) and install an adapter. Connect a 0 to 3448 kPa (0 to 500 psi) pressure gauge to adapter at each brake unit.
+p. Using a force indicator at each brake pedal in turn (LH and RH) check that, with application of a 267 to 289 newtons (60 to 65 lb) force, movement of brake master cylinder piston is 20.3 mm (0.8 in.) maximum and that pressure of between 1655 and 1724 kPa (240 and 250 psi) registers on pressure gauge.
+q. Apply brakes normally at LH position, pull out parking brake handle and release brake pedals. Check that parking brake is applied and that pressure registered at both gauges is between 2069 and 2758 kPa (300 and 400 psi).
+r. Apply and then release brake pedals at either pilot position and check that parking brake releases.
+s. Reapply parking brake and check that there is no pressure drop shown by the gauges over a period of 1 hour.
+t. Release parking brake, remove pressure gauges and adapters. Install bleed valves and lockwire.
+u. Recheck fluid level in brake reservoir, topping up if necessary (see C-12-114-000/MF-001).
+
+

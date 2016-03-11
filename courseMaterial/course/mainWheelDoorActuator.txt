@@ -1,0 +1,36 @@
+MAIN WHEEL DOOR ACTUATOR
+GENERAL
+18. The stroke of the piston is a nominal 128.5 to 129.3 mm (5.06 to 5.09 in.). Adjustment of ±3.81 mm (±0.15 in.) about nominal, in increments of 0.635 mm (0.025 in.), is obtainable by means of the piston-rod eye-end. Piston-rod and cylinder eye-ends each have a Teflon-lined self-aligning spherical bearing installed. The actuator is attached by the cylinder eye-end to a spigot on the main spar at WS 56.78 and by the piston-rod eye-end to the forked upper lever of the door link strut (see Figure 6-4-9). The Teflon-lined spherical bearings do not require lubrication.
+19. After the actuator has been installed and adjusted, the piston-rod locknut shall be torqued to the value detailed in Figure 6-4-14 and lockwired.
+20. For further information pertaining to the main wheel door actuator, see C-13-502-000/MS-000.
+REMOVAL
+21. Proceed as follows (see Figure 6-4-9):
+a. Connect ground power to aircraft. Open main wheel doors by operating hydraulic hand pump with ground servicing switch in port main gear bay selected to OPEN.
+b. Disperse residual hydraulic pressure in system (see C-12-114-0B0/MF-001) and tag controls in cockpit to indicate that hydraulics are not to be used.
+c. Disconnect hydraulic lines (2, 3 and 6). Cap open ends.
+d. Disconnect actuator from upper lever of door link by removing cotter pin, nut, washer and bolt (5).
+e. Disconnect actuator from spigot (1) by removing cotter pin, nut and washer, and remove actuator.
+INSTALLATION
+22. Proceed as follows (see Figure 6-4-9):
+a. Jack and steady aircraft (see C-12-114-000/ MF-001).
+b. With main wheel door fully open, lightly clamp door link in over-centre position.
+c. Connect cylinder end of actuator to spigot (1) on main spar with washer, nut and cotter pin.
+d. Fully close actuator. Adjust actuator pistonrod eye-end to obtain a drop fit for attachment bolt (5) with door link.
+e. Remove bolt (5). Screw piston-rod eye-end in two complete turns to obtain 2.54 mm (0.1 in.) overtravel of actuator. Install bolt (5), washer, nut and cotter pin.
+·····CA··U··TI··ON·····
+When connecting hydraulic lines, ensure proper position (angle) of MLG door actuator fittings to allow sufficient clearance, when door is closed, between hydraulic line fittings, main gear door lever and surrounding lines.
+f. Connect hydraulic lines (2, 3 and 6).
+g. Ensure that ground safety locking pins are installed on other two gears.
+h. Top up hydraulic reservoir (see C-12-114-000/ MF-001).
+i. Remove clamp from door link. Apply 10 342 kPa (1500 psi) hydraulic pressure with ground servicing switch in OPEN position and check normal down line (3) for leaks. Correct any leak.
+j. Place ground servicing switch to CLOSE and apply hydraulic pressure to fully close door. Increase pressure to 10 342 kPa (1500 psi) and check up line (2) for leaks. Correct any leak.
+k. Check main wheel door for correct closure (see Paragraph 14).
+l. Open main wheel door and release hydraulic pressure. Ensuring that eye-end is in safety, torque eye-end locknut to value detailed in Figure 6-4-14 and lockwire.
+m. Check adjustment of microswitch (4) and door uplock microswitch (see Paragraph 56).
+n. Carry out precautions for functional test of gear (see Paragraph 55).
+o. Operate gear several times to pass any air remaining in system to reservoir. Leave gear in retracted position.
+p. Using landing gear emergency handle (see Paragraph 55), lower gear and check emergency down line (6) for leaks. Correct any leak. Push handle in on completion of check.
+q. Operate gear several times and check that pressure required to operate gear through the various stages is within stipulated limits (see Paragraph 55).
+r. Ensure that all components removed or disturbed during the course of these operations are correctly locked and, where applicable, in safety.
+s. Install ground safety locking pins. Lower aircraft to ground and remove jacking equipment (see C-12-114-000/MF-001).
+t. Disconnect and remove ground power.
