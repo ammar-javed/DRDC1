@@ -1,14 +1,22 @@
 package com.aps490.drdc.prototype;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.app.Dialog;
 import java.util.ArrayList;
 
 import java.io.IOException;
@@ -17,6 +25,7 @@ public class instructions extends AppCompatActivity {
     Assembly assembly;
     Instruction currentInstr;int task;
     private ImageView mDialog;
+    ArrayList<String> figures;
 
 
     @Override
@@ -47,6 +56,8 @@ public class instructions extends AppCompatActivity {
             currentInstr = instruction;
 
             ((TextView) findViewById(R.id.textViewInst)).setText(currentInstr.getText());
+
+            figures = assembly.getFigures();
         }
         catch(IOException e){
             e.printStackTrace();
@@ -60,7 +71,6 @@ public class instructions extends AppCompatActivity {
             currentInstr = instruction;
 
         ((TextView) findViewById(R.id.textViewInst)).setText(currentInstr.getText());
-
     }
 
 
@@ -74,15 +84,40 @@ public class instructions extends AppCompatActivity {
 
     }
     public void seeFigures(View view) {
-        ArrayList<String> figures = assembly.getFigures();
-        System.out.println(figures.get(0));
         if( figures.isEmpty() ) {
             System.out.println("No figures for this module");
             //Add a popup saying no figure available for module
         }
         else {
             System.out.println("Figure name for this app is: " + figures.get(0));
+            showImage(figures.get(0));
             //To load the image, use ...something...( getAssets().open(figures[0])   );
         }
     }
+
+    public void showImage( String fileName ) {
+        Dialog builder = new Dialog(this);
+        builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        builder.getWindow().setBackgroundDrawable(
+                new ColorDrawable(android.graphics.Color.TRANSPARENT));
+        builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
+            @Override
+            public void onDismiss(DialogInterface dialogInterface) {
+                //nothing;
+            }
+        });
+
+        ImageView imageView = new ImageView(this);
+        try {
+            imageView.setImageBitmap(BitmapFactory.decodeStream(getAssets().open(fileName)));
+        }catch(IOException e) {
+            e.printStackTrace();
+        }
+
+        builder.addContentView(imageView, new RelativeLayout.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT));
+        builder.show();
+    }
+
 }
