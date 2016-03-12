@@ -84,7 +84,10 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     Handler mHandler;
 
     LeapActionReceiver mReceiver;
-    IntentFilter mFilter;
+    IntentFilter mLeapProcessFilter;
+
+    LeapTapEventReceiver mLeapTapReceiver;
+    IntentFilter mLeapTapFilter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -111,6 +114,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             @Override
             public void onClose(int code, String reason) {
                 Log.d(Constants.TAG, "Connection lost.");
+                reconnect();
             }
 
             private void sendLeapServicePayload(String payload) {
@@ -164,11 +168,34 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mHandler = new Handler(mLooper);
 
         // Create new broadcast filter
-        mFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
-        mFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mReceiver = new LeapActionReceiver(this.getApplicationContext());
+        mLeapProcessFilter = new IntentFilter(Constants.LEAP_PAYLOAD_TO_PROCESS);
+        mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
+
+        // Pass in the root activity view as well as context.
+        mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().findViewById(R.id.login_activity));
+
         // Will not process on main thread.
-        registerReceiver(mReceiver, mFilter, null, mHandler);
+        registerReceiver(mReceiver, mLeapProcessFilter, null, mHandler);
+
+        // Register new receiver to process tap events on UI elements
+        // will run on main thread, so allow access to UI.
+        mLeapTapFilter = new IntentFilter(Constants.LEAP_TAP_RELEVANT_VIEW);
+        mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
+        mLeapTapReceiver = new LeapTapEventReceiver(this.getApplicationContext());
+
+        registerReceiver(mLeapTapReceiver, mLeapTapFilter);
+    }
+
+    /**
+     * If websocket connection goes down unintentionally,
+     * attempt a reconnect.
+     */
+    void reconnect(){
+        try {
+            mConnection.connect(url, mConnectionHandler);
+        } catch (Exception e) {
+            Log.e(Constants.TAG, e.toString());
+        }
     }
 
     /**
@@ -182,6 +209,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         if (mConnection != null) {
             mConnection.disconnect();
             unregisterReceiver(mReceiver);
+            unregisterReceiver(mLeapTapReceiver);
             mConnection = null;
         }
     }
@@ -195,11 +223,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     protected void onResume() {
         super.onResume();
 
-        if(mConnection == null) {
+        if (mConnection == null) {
             mConnection = new WebSocketConnection();
             try {
                 mConnection.connect(url, mConnectionHandler);
-                registerReceiver(mReceiver, mFilter, null, mHandler);
+                registerReceiver(mReceiver, mLeapProcessFilter, null, mHandler);
+                registerReceiver(mLeapTapReceiver, mLeapTapFilter);
             } catch (Exception e) {
                 Log.e(Constants.TAG, e.toString());
             }
