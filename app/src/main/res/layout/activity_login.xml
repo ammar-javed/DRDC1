@@ -9,7 +9,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.aps490.drdc.prototype.LoginActivity">
+    tools:context="com.aps490.drdc.prototype.LoginActivity"
+    android:background="@color/black">
 
     <com.aps490.drdc.prototype.DrawingView
     android:id="@+id/surfaceView"
@@ -41,7 +42,8 @@
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/emailLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white">
 
                 <AutoCompleteTextView
                     android:id="@+id/email"
@@ -50,14 +52,16 @@
                     android:hint="@string/prompt_email"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/white"/>
 
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:id="@+id/passwordLayout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:textColorHint="@color/white">
 
                 <EditText
                     android:id="@+id/password"
@@ -69,7 +73,8 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:singleLine="true" />
+                    android:singleLine="true"
+                    android:textColor="@color/white"/>
 
             </android.support.design.widget.TextInputLayout>
 
