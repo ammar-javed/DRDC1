@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
@@ -15,6 +16,8 @@ import android.view.WindowManager;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by JollyRancher on 16-02-21.
@@ -57,15 +60,15 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
         switch (action) {
             case Constants.LEAP_PAYLOAD_TO_PROCESS:
-                processPayLoad(intent);
+                processPayLoad(context, intent);
+                break;
             default:
                 break;
         }
     }
 
-    private void processPayLoad(Intent intent) {
+    private void processPayLoad(Context context, Intent intent) {
         String payload = intent.getStringExtra("payload");
-        //Log.d(Constants.TAG, "[" + this.getClass().getSimpleName() + "]" + payload);
 
         try {
             JSONObject frame = new JSONObject(payload);
@@ -105,6 +108,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
                         }
                         break;
                     case "screenTap":
+
                         Double tapX = gesture.getJSONArray("position").getDouble(0);
                         Double tapY = gesture.getJSONArray("position").getDouble(1);
 
@@ -113,14 +117,21 @@ public class LeapActionReceiver extends BroadcastReceiver {
                         if (norm_tap_coord != null) {
                             Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
 
-                            View hitView = findHitView(rootView);
+                            View hitView = findHitView(rootView, norm_tap_coord);
 
                             if (hitView != null) {
-                                MotionEvent e = MotionEvent.obtain(SystemClock.uptimeMillis(),
-                                        SystemClock.uptimeMillis(),
-                                        MotionEvent.ACTION_UP,
-                                        norm_tap_coord.x, norm_tap_coord.y, 0);
-                                hitView.dispatchTouchEvent(e);
+
+                                //hitView.performClick();
+                                // Send relevant view ID back to main thread to handle
+                                Intent tappedViewIntent = new Intent();
+                                tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
+                                tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                Log.i(Constants.TAG, "View ID before sending "+hitView.getId());
+                                tappedViewIntent.putExtra("viewID", hitView.getId());
+                                tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
+                                tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
+                                context.sendBroadcast(tappedViewIntent);
+
                             }
                         }
                         break;
@@ -137,26 +148,34 @@ public class LeapActionReceiver extends BroadcastReceiver {
      * Try and find the first inner child view that was hit, starting from the
      * root view of the activity.
      * @param rV root view of activity
+     * @param tap Point where screen was tapped (simulation)
      * @return view that the screen tap hit. Null if none.
      */
-    private View findHitView(View rV) {
+    private View findHitView(View rV, Point tap) {
         View hit = null;
         Rect hitRect;
         for(int i=0; i<( (ViewGroup) rV).getChildCount(); ++i) {
             hitRect = new Rect();
             View nextChild = ( (ViewGroup) rV).getChildAt(i);
+
             try {
                 if ( ( (ViewGroup) nextChild).getChildCount() > 0) {
-                    hit = findHitView(nextChild);
+                    hit = findHitView(nextChild, tap);
                     if (hit != null) {
                         return hit;
                     }
                 }
             } catch (ClassCastException e) {
-                Log.e(Constants.TAG, e.toString());
+               // Log.e(Constants.ERROR, e.toString());
             }
+
             nextChild.getHitRect(hitRect);
-            Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
+
+            if ( hitRect.contains(tap.x, tap.y) ) {
+                hit = nextChild;
+                Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
+                return hit;
+            }
         }
         return hit;
     }
