@@ -1,0 +1,24 @@
+MAIN LANDING GEAR WHEEL
+REMOVAL
+27. Proceed as follows (see Figure 6-4-11):
+a. Chock aircraft and jack main gear on which wheel is being changed (see C-12-114-000/ MF-001).
+
+WARNING
+Before beginning removal of wheel from aircraft, fully deflate tire and remove valve core.
+b. Remove cotter pin from wheel retaining nut (1). Using special wrench (see C-12-114-000/ MF-001, Figure 1-5, Item 23), remove retaining nut and washer (2).
+c. Remove keyed washer (2) and outer bearing spacer (3) and remove wheel.
+
+INSTALLATION
+28. Proceed as follows (see Figure 6-4-11):
+a. Check that inner bearing spacer (5) is installed with taper facing towards wheel.
+b. Ensure that old grease has been removed from wheel bearings.
+c. Relubricate bearing with grease (see Figure 1-2, Item 3).
+d. Apply grease (Item 3) to axle extension threads, axle nut washer and bearing surface of axle nut.
+e. Centrally position brake disc (4) and apply parking brake to lock brake assembly. Position wheel to align wheel drive keys with slots in brake disc.
+f. Install outer bearing spacer (3) with taper facing towards wheel, keyed washer (2) and nut (1). Using special wrench, (see C-12-114000/MF-001, Figure 1-5, Item 23) torque nut to 13.6 N·m (120 in·lb) while manually rotating wheel. With wheel static, loosen nut and retorque to 3.95 N·m (35 in·lb) (5.65 N·m [50 in·lb] on aircraft with modification C-12-114-000/CF-465 embodied).
+NOTE Should the wheel show any signs of looseness with locking holes aligned or the slot and hole misaligned at 3.95 N·m (35 in·lb), it is permissible to tighten the wheel retaining nut to the next aligning locking hole.
+g. Rotate wheel and check for undue resistance.
+h. Inflate tire to correct pressure (see C-12-114000/MF-001).
+i. Remove chocks, lower aircraft (see C-12-114000/MF-001) and remove gear jacking equipment.
+
+

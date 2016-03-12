@@ -1,0 +1,16 @@
+MAIN WHEEL DOOR ACTUATOR SPIGOT
+REMOVAL
+23. Proceed as follows (see Figure 6-4-9):
+a. Disconnect door actuator from spigot (1) in accordance with Paragraph 21, Step e.
+b. Remove droop snoot.
+c. Install two nuts on spigot to form a jam nut to prevent spigot from turning.
+d. Using a socket and extensions as necessary, remove nut and washer from spigot.
+NOTE The nut is accessible through an access hole in the front spar web at WS 57.05.
+e. Remove spigot from main spar.
+INSTALLATION
+24. Proceed as follows (see Figure 6-4-9):
+a. Install spigot through main spar.
+b. Using a socket and extensions as necessary, install washer as necessary, install washer and nut on spigot (1) through access hole in wing front spar at WS 57.05.
+c. Connect main wheel door actuator in accordance with Paragraph 22, Step c.
+d. Cover access hole with pressure-sensitive tape.
+e. Install droop snoot.

@@ -1,0 +1,60 @@
+SIDE STAY ASSEMBLY
+GENERAL
+6. The side stay is designed so that, with a 0.127 mm (0.005 in.) thick shim inserted at the knuckle between the face of the upper strut and the lug on the lower strut, a 3.05 ±0.254 mm (0.120 ±0.010 in.) over-centre geometric lock is provided (see Figure 6-4-3). In this position, holes provided in the upper and lower struts align to permit the insertion of a ground safety locking pin which prevents inadvertent retraction of the gear.
+REMOVAL
+7. Proceed as follows (see Figure 6-4-4):
+a. Jack and steady aircraft (see C-12-114-000/ MF-001).
+b. Connect ground power to aircraft. Open main wheel doors by operating hydraulic hand pump with ground servicing switch in port main gear bay selected to OPEN.
+c. Dissipate residual hydraulic pressure in aircraft system (see C-12-114-0B0/MF-001). Tag controls in cockpit.
+d. Disconnect side stay from leg by removing cotter pin, nut, washer, chamfered washer (9) and bolt (8).
+e. Disconnect main gear actuator (7) from side stay (see Paragraph 4) and secure actuator clear of working area.
+f. Trace uplock microswitch (17) lead, disconnect plug from receptacle, and secure clear of working area.
+g. Disconnect hydraulic lines (1 and 2) from uplock actuator (11). Cap open lines.
+h. Break lockwire, remove four bolts (6) and remove side stay complete with uplock assembly (5).
+i. If required, remove uplock assembly (5) (see Paragraph 9) and uplock actuator (11) (see Paragraph 11) and uplock microswitch (17) from uplock assembly.
+INSTALLATION
+8. Proceed as follows (see Figure 6-4-4):
+a. Ensure that uplock assembly (5), with uplock actuator (11) and uplock microswitch (17) installed and correctly adjusted (see Paragraph 12), is installed on side stay (see Paragraph 10).
+NOTE Before fitting shaft anti-rotation devices (21 or 23), when installing a new shaft (16) or mounting block (20), or installing a side stay assembly into a replacement wing, install uplock (5) (see Paragraph 10) on shaft (16) and then position uplock (5) to properly receive uplock pin on main landing gear leg. For fitting data on fit of locking pin (21) and roll-pin (22), see Figure 6-4-4.
+·····CA··U··TI··ON·····
+Heli-coil inserts shall be inspected for security and condition prior to installation of side stay bolts (6).
+b. Locate side stay assembly in position at wing mounting beam and temporarily secure mounting blocks with the four bolts (6).
+c. Check total clearance between side stay and attachment blocks and between uplock and adjacent attachment block. Clearances should be 0.305 mm (0.012 in.) maximum for the former and 0.254 to 0.381 mm (0.010 to 0.015 in.) for the latter.
+d. If either clearance is incorrect, remove side stay assembly and uplock assembly from side stay (see Paragraph 9). Install laminated shims (19) between, as applicable, the side stay and attachment blocks and/or between the two washers (15) to obtain the required clearances when side stay (with uplock assembly installed) is reinstalled. Lockwire bolts (6) in pairs on completion.
+e. Connect main gear actuator (7) to side stay (see Paragraph 5). Note that adjustment will be subsequently carried out.
+f. Connect side stay to leg with bolt (8), chamfered washer (9), washer, nut and cotter pin, locating chamfered washer under head of bolt.
+g. Connect hydraulic lines (1 and 2) to uplock actuator (11) ports.
+h. Top up hydraulic reservoir see C-12-114-000/ MF-001).
+i. Carry out precautions for a functional test of gear (see Paragraph 55).
+j. Connect uplock microswitch (17) plug to receptacle.
+k. Adjust setting of side stay in conjunction with checking adjustment of main gear actuator (see Paragraph 5); operate gear several times during the procedure to pass air in system to reservoir.
+l. During Step m, carry out the following checks and the applicable checks detailed in actuator installation (see Paragraph 5):
+(1) Check uplock actuator (11) normal down line for leaks with 10 342 kPa (1500 psi) hydraulic pressure applied. Correct any leak.
+(2) With leg door disconnected to obtain better access and with gear retracted to point where uplock pin is about to enter the uplock jaws, take up all movement of uplock assembly in either right or left direction. Check that pin will have free access into the jaws in this position.
+(3) Repeat with movement taken up in opposite direction, the same requirement being applicable.
+NOTE The pin fouling the uplock jaws in either Step (2) or (3) indicates excessive wear necessitating replacement of uplock.
+(4) Check that there is equal clearance around uplock actuator (11).
+(5) Fully retract gear. Lower gear by means of emergency system (see Paragraph 55) and check uplock actuator (11) emergency down line for leaks with 10 342 kPa (1500 psi) hydraulic pressure applied. Correct any leak.
+(6) Reconnect leg door (see Paragraph 17).
+m. On satisfactory completion of checks and repositioning of shuttle valves to their normal position (see Paragraph 55), install ground safety locking pins, disconnect ground power, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.
+n. Ensure that all parts removed or disturbed during the course of these operations are locked and, where applicable, in safety.
+MAIN LANDING GEAR UPLOCK
+REMOVAL
+9. Proceed as follows (see Figure 6-4-4):
+a. Remove side stay assembly (see Paragraph 7).
+b. Remove cotter pin, nut (18), plain and rubber washers (14), plain washer and bolt (13) securing uplock assembly to side stay shaft (16).
+c. Remove assembly complete with uplock actuator (11) and uplock microswitch (17). Remove the two spacing washers (15) and laminated shim (19).
+d. If required, remove uplock microswitch (17) and uplock actuator (11) (see Paragraph 11).
+INSTALLATION
+10. Proceed as follows (see Figures 6-4-4 and 6-4-5):
+a. Ensure that uplock microswitch (17) and uplock actuator (11) are correctly installed and adjusted (see Paragraph 12).
+b. With uplock in closed position, install limit switch. Adjust switch to set clearance between bottom of cam step and switch roller 0.381 ±0.127 mm (0.015 ±0.005 in.). Adjust switch bracket so that switch roller just contacts the face of cam step. Open lock and check that switch is energized. Close lock and recheck switch adjustment and lockwire switch in position.
+c. Install the two spacing washers without shim (19). Locate uplock assembly (5), positioned downwards and inwards, on shaft (16) to align mounting holes.
+d. Temporarily install retaining bolt (13).
+e. Install side stay assembly on aircraft as detailed in Paragraph 8, locating a laminated shim (19) between the two washers (15) to obtain stipulated clearance.
+f. Reinstall bolt (13), with plain and rubber (14) washers located as indicated, and secure with nut (18) and cotter pin. Carry out the postinstallation checks detailed in Paragraph 8, including those in referenced paragraphs.
+NOTE Nut (18) shall only be tightened sufficiently to lightly trap rubber washers (14).
+g. On satisfactory completion of installation and checks, install ground safety locking pin, disconnect ground power, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.
+h. Ensure that all parts removed or disturbed during the course of these operations are locked and, where applicable, in safety.
+
+

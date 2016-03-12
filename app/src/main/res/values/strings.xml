@@ -56,14 +56,15 @@
     <string name="button15">Bleeding And Functional </string>
 
 
-
     <!-- STRINGS RELATED TO GET_INSTRUCTIONS SELECTION -->
 
     <string name="title_activity_get_instructions">Instructions</string>
 
     <string name="section_format">Instruction : %1$d</string>
-
-
+    <string name="title_activity_main2">Main2Activity</string>
+    <string name="title_activity_list_view">listView</string>
+    <string name="title_activity_task">task</string>
+    <string name="title_activity_instructions">instructions</string>
 
 
 </resources>

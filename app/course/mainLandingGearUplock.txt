@@ -1,0 +1,20 @@
+MAIN LANDING GEAR UPLOCK
+REMOVAL
+9. Proceed as follows (see Figure 6-4-4):
+a. Remove side stay assembly (see Paragraph 7).
+b. Remove cotter pin, nut (18), plain and rubber washers (14), plain washer and bolt (13) securing uplock assembly to side stay shaft (16).
+c. Remove assembly complete with uplock actuator (11) and uplock microswitch (17). Remove the two spacing washers (15) and laminated shim (19).
+d. If required, remove uplock microswitch (17) and uplock actuator (11) (see Paragraph 11).
+INSTALLATION
+10. Proceed as follows (see Figures 6-4-4 and 6-4-5):
+a. Ensure that uplock microswitch (17) and uplock actuator (11) are correctly installed and adjusted (see Paragraph 12).
+b. With uplock in closed position, install limit switch. Adjust switch to set clearance between bottom of cam step and switch roller 0.381 ±0.127 mm (0.015 ±0.005 in.). Adjust switch bracket so that switch roller just contacts the face of cam step. Open lock and check that switch is energized. Close lock and recheck switch adjustment and lockwire switch in position.
+c. Install the two spacing washers without shim (19). Locate uplock assembly (5), positioned downwards and inwards, on shaft (16) to align mounting holes.
+d. Temporarily install retaining bolt (13).
+e. Install side stay assembly on aircraft as detailed in Paragraph 8, locating a laminated shim (19) between the two washers (15) to obtain stipulated clearance.
+f. Reinstall bolt (13), with plain and rubber (14) washers located as indicated, and secure with nut (18) and cotter pin. Carry out the postinstallation checks detailed in Paragraph 8, including those in referenced paragraphs.
+NOTE Nut (18) shall only be tightened sufficiently to lightly trap rubber washers (14).
+g. On satisfactory completion of installation and checks, install ground safety locking pin, disconnect ground power, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.
+h. Ensure that all parts removed or disturbed during the course of these operations are locked and, where applicable, in safety.
+
+

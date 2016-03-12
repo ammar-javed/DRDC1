@@ -45,13 +45,11 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".MainActivity"
             android:configChanges="screenSize|orientation"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".LoginActivity"
             android:label="@string/title_activity_login">
@@ -61,22 +59,33 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ModuleSelection"
-            android:label="@string/ModuleSelectionName">
-        </activity>
-
+            android:label="@string/ModuleSelectionName" />
         <activity
             android:name=".sub_assembly"
             android:label="@string/title_activity_sub_assembly"
-            android:theme="@style/AppTheme.NoActionBar" >
-        </activity>
-
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".get_instructions"
             android:label="@string/title_activity_get_instructions"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Main2Activity"
+            android:label="@string/title_activity_main2"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".listView"
+            android:label="@string/title_activity_list_view"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".task"
+            android:label="@string/title_activity_task"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".instructions"
+            android:label="@string/title_activity_instructions"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
