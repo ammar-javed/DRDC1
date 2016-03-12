@@ -7,13 +7,16 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
+import java.util.ArrayList;
 
 import java.io.IOException;
 
 public class instructions extends AppCompatActivity {
     Assembly assembly;
     Instruction currentInstr;int task;
+    private ImageView mDialog;
 
 
     @Override
@@ -69,5 +72,17 @@ public class instructions extends AppCompatActivity {
 
         ((TextView) findViewById(R.id.textViewInst)).setText(currentInstr.getText());
 
+    }
+    public void seeFigures(View view) {
+        ArrayList<String> figures = assembly.getFigures();
+        System.out.println(figures.get(0));
+        if( figures.isEmpty() ) {
+            System.out.println("No figures for this module");
+            //Add a popup saying no figure available for module
+        }
+        else {
+            System.out.println("Figure name for this app is: " + figures.get(0));
+            //To load the image, use ...something...( getAssets().open(figures[0])   );
+        }
     }
 }
