@@ -1,0 +1,27 @@
+<data:assembly name="Brake Master Cylinder Adjustment">
+  <module name="Procedure">
+    <instructions>
+      <step>
+        <instruction>a. Pull up on brake pedal to fully compress master cylinder.</instruction>
+      </step>
+      <step>
+        <instruction>b. Remove cotter pin, nut, washer and bolt securing master cylinder to arm of brake pedal. Note that washers, as required, are installed each side between rod-end and arm.</instruction>
+      </step>
+      <step>
+        <instruction>c. Break lockwire and slacken master cylinder rod-end locknut.</instruction>
+      </step>
+      <step>
+        <instruction>d. Adjust rod-end to obtain a dimension of 340 ±1.59 mm (13.40 ±1/16 in.) between centres of master cylinder attachment bolts when master cylinder is reattached, with master cylinder fully compressed and pedal fully up.</instruction>
+      </step>
+      <step>
+        <instruction>e. Ensure that rod-end is in safety, then torque rod-end locknut to value detailed in Figure 6-4-14 and lockwire to locking device.</instruction>
+      </step>
+      <step>
+        <instruction>f. Connect master cylinder to brake pedal arm; position washers, as required, either side of rod-end and secure with bolt, washer, nut and cotter pin.</instruction>
+      </step>
+      <step>
+        <instruction>g. Check brake pedal for full and free movement.</instruction>
+      </step>
+    </instructions>
+  </module>
+</data:assembly>

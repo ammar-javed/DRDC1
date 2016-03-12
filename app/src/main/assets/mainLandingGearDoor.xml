@@ -1,0 +1,135 @@
+<data:assembly name="Main Landing Gear Door">
+  <module name="Removal">
+    <figure path="CourseFigures/6-4-7.jpg"/>
+    <instructions>
+      <step>
+        <instruction>a. Ensure that ground safety locking pins are installed on all three gear.</instruction>
+      </step>
+      <step>
+        <instruction>b. Connect ground power to aircraft. Lower main wheel doors by operating hydraulic hand pump with ground servicing switch in port main gear bay selected to OPEN.</instruction>
+      </step>
+      <step>
+        <instruction>c. With pressure exerted to counteract force applied by spring-box (12), remove nut, washer and screw (13) that secures pin (14).</instruction>
+        <note>Spring-box may be contained during removal by using spring-box clamp, see C-12-114-000/CS-031.</note>
+      </step>
+      <step>
+        <instruction>d. Remove pin (14) and washers (15) and slowly release pressure to permit spring-box (12) to extend.</instruction>
+      </step>
+      <step>
+        <instruction>e. Remove and retain spring (29) from halves of spring-box (12).</instruction>
+      </step>
+      <step>
+        <instruction>f. Secure door link (1) clear of working area.</instruction>
+      </step>
+      <step>
+        <instruction>g. Remove nut, washer and screw (5) which secure jumper cable (4) to wing.</instruction>
+      </step>
+    </instructions>
+  </module>
+  <module name = "Installation">
+    <figure path="CourseFigures/6-4-6.jpg"/>
+    <figure path="CourseFigures/6-4-7.jpg"/>
+    <instructions>
+      <step>
+        <instruction>
+      a. Check that jumper cable (4) is correctly installed on aft hinge of door. Check that male half of spring-box (12) is installed on door with washers (30) located one each side of spring-box eye-end, and a cotter pin.</instruction>
+      </step>
+      <step>
+        <instruction>b. Check dust button covers for security. If required, seal in place with sealant (see Figure 1-2, Item 8, Class A-1/2).</instruction>
+      </step>
+      <step>
+        <instruction>c. Position door and secure in place using bolts (2 and 6), washers (3) and nuts at each hinge but without washers (7 and 9), and shims (8) at aft hinge. Tighten nut of forward hinge bolt (2).</instruction>
+      </step>
+      <step>
+        <instruction>d. Measure and note clearance each side of aft hinge bearing.</instruction>
+      </step>
+      <step>
+        <instruction>e. With door supported, remove aft hinge bolt (6). Install with aluminum washers (7 and 9), and shims (8) installed in the most suitable combination to take up the clearances either side of hinge bearing. Install washer (3) and nut.</instruction>
+      </step>
+      <step>
+        <instruction>f. Connect jumper cable (4) to wing structure with screw (5), washer and nut.</instruction>
+      </step>
+      <step>
+        <instruction>g. Manually fold door link (1) and secure clear of door opening.</instruction>
+      </step>
+      <step>
+        <instruction>h. Remove door eccentric pin (18) from door frame.</instruction>
+      </step>
+      <step>
+        <instruction>i. Close door by hand and generally check door for proper fit and alignment in door opening. Check that machined surface of aft edge of door frame contacts door stop on aft spar with door skin flush within 0.794 mm (1/32 in.) of wing skin. Adjust alignment of door by use of shims (26). Shim door to suit.</instruction>
+        <note>The main landing gear door is provided with several means of adjustment to obtain proper alignment and clearances. It should be noted that the actuating and locking mechanisms are mounted on the forward edge of the door and, in order to ensure that the door remains tightly closed during flight, a 4.76 mm (3/16 in.) twist is built-in during the rigging procedure. This twist is accomplished by allowing the machined surface on the door frame casting to contact a stop bracket on the rear spar prior to complete closure of the forward edge of the door. The amount of twist may be adjusted by the removal or addition of shims under the appropriate hinge bracket.</note>
+      </step>
+      <step>
+        <instruction>j. Check that forward outer edge of door is 4.76 ±0.794 mm (3/16 ±1/32 in.) clear of door lands when aft edge of door frame is in contact with door stop. Adjust as necessary with shims (27).</instruction>
+      </step>
+      <step>
+        <instruction>k. Ensure that roller (16) is properly aligned with fork of leg door latch mechanism and will correctly operate mechanism when gear is subsequently retracted.</instruction>
+      </step>
+      <step>
+        <instruction>l. Check that door is flush with wing surface within ±0.794 mm (±1/32 in.) and that clearance between door and wing skin is 1.52 to 2.54 mm (0.060 to 0.100 in.).</instruction>
+        <note>All gaps and clearances, unless stated otherwise, shall be checked with system pressure at 10 342 kPa (1500 psi). Adjustment is made by removal of bolts (11 and 28) and screws (10) and the installation or removal, as required, of shims (27, 26 and 25), noting that final adjustment necessary is made with shims (26) during Step x.</note>
+      </step>
+      <step>
+        <instruction>m. Install door eccentric pin (18) and adjust to full up position.</instruction>
+      </step>
+      <step>
+        <instruction>n. Insert spring (29) and assemble the two halves of spring-box (12), holding them in place by pushing in on door link (1).</instruction>
+        <note>Spring-box may be contained during installation by using spring-box clamp, see C-12-114-000/CS-031.</note>
+      </step>
+      <step>
+        <instruction>o. Connect door link (1) to door with pin (14), with a washer (15) located each side as shown, and secure with screw (13), washer and nut.</instruction>
+      </step>
+      <step>
+        <instruction>p. Prepare to carry out a gear retraction test (see Paragraph 55).</instruction>
+      </step>
+      <step>
+        <instruction>q. Check adjustment of door actuator to ensure that overtravel is still within permissible limits. Adjust if necessary (see Paragraph 22).</instruction>
+      </step>
+      <step>
+        <instruction>r. Check adjustment of door microswitches (see Paragraph 56).</instruction>
+      </step>
+      <step>
+        <instruction>s. Close door uplock by hand and mark the fully locked position of slider (see Figure 6-4-5).</instruction>
+      </step>
+      <step>
+        <instruction>t. With gear ground safety pins installed and gear selected down, place ground servicing switch to closed position and slowly close door using hand pump. Observe alignment of door pin with door uplock. Lock should snap fully closed with a definite snap action and slider should align with mark (see Step s). A considerable gap should be present between door and wing skin with eccentric adjusted as in Step m.</instruction>
+      </step>
+      <step>
+        <instruction>u. Open door and adjust eccentric one notch at a time to bring door up flush with wing skin within 0.794 mm (1/32 in.).</instruction>
+      </step>
+      <step>
+        <instruction>TIP: During the adjustment of the door eccentric, it is essential that the pin enters the uplock freely and that uplock rotation is not restricted when final locking occurs. If, after vertical adjustment is obtained, the uplock does not close with a definite snap action to the fully locked position as indicated by the mark made in Step s, carry out the following checks:</instruction>
+      </step>
+      <step>
+        <instruction>(1) Check that uplock pin diameter is between 19.037 and 19.063 mm (0.7495 and 0.7505 in.), modified pin 18.3 ±0.051 mm (0.720 ±0.002 in.).</instruction>
+      </step>
+      <step>
+        <instruction>(2) Check lateral position of uplock eccentric pin in relation to position of uplock jaws. If misalignment is indicated, reposition eccentric to opposite side of arc, i.e., if pin is positioned at 9 o'clock, reposition to 3 o'clock.</instruction>
+      </step>
+      <step>
+        <instruction>(3) If satisfactory operation of uplock is not obtained in Steps (1) or (2), remove 6.35 mm (1/4 in.) bolt which retains uplock in its mounting bracket and recheck uplock operation. If operation is now satisfactory, slightly elongate holes in mounting bracket to allow sufficient rotation of uplock to ensure that uplock is free to align with pin in closed position.</instruction>
+      </step>
+      <step>
+        <instruction>v. Recheck clearance at outer forward edge of door when rear door frame is in contact with stop as in Step j.</instruction>
+      </step>
+      <step>
+        <instruction>w. Close door and recheck clearances and door in opening as in Step l.</instruction>
+      </step>
+      <step>
+        <instruction>x. Check adjustment of leg door latch mechanism as in Paragraph 15.</instruction>
+      </step>
+      <step>
+        <instruction>y. Remove ground safety locking pins from all three gears and carry out functional test of landing gear (see Paragraph 55). Check that operating pressures in the different configurations are within limits and that the specified clearance exists between main gear leg and door. Check leg door rigging (see Paragraph 17).</instruction>
+      </step>
+      <step>
+        <instruction>z. Lower landing gear and install ground safety locking pins.</instruction>
+      </step>
+      <step>
+        <instruction>aa. Install cotter pins to nuts of forward (2) and aft (6) hinge bolts. Ensure that all items removed or disturbed during the course of these operations are correctly locked and, where applicable, in safety.</instruction>
+      </step>
+      <step>
+        <instruction>ab. Disconnect and remove ground power, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.</instruction>
+      </step>
+    </instructions>
+  </module>
+</data:assembly>

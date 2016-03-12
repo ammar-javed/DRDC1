@@ -16,7 +16,7 @@ import java.io.IOException;
 
 public class task extends AppCompatActivity implements AdapterView.OnItemClickListener {
     ListView l ;
-
+    Intent intent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +25,7 @@ public class task extends AppCompatActivity implements AdapterView.OnItemClickLi
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         String[] values;
-        Intent intent = getIntent();
+        intent = getIntent();
         String moduleName = intent.getStringExtra("name");
         System.out.println(moduleName);
 
@@ -46,10 +46,10 @@ public class task extends AppCompatActivity implements AdapterView.OnItemClickLi
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Intent intent = new Intent(this, instructions.class);
-        intent.putExtra("name",intent.getStringExtra("name"));
-        intent.putExtra("task",position);
-        startActivity(intent);
+        Intent newIntent = new Intent(this, instructions.class);
+        newIntent.putExtra("name",intent.getStringExtra("name"));
+        newIntent.putExtra("task",position);
+        startActivity(newIntent);
 
     }
 }

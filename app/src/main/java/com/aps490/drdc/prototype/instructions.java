@@ -32,10 +32,18 @@ public class instructions extends AppCompatActivity {
 
         try {
             System.out.println("Attempting to load assembly " + assemblyName);
-            Assembly assembly = new Assembly( getAssets().open(CourseModules.map.get(assemblyName) ) );
+            assembly = new Assembly( getAssets().open(CourseModules.map.get(assemblyName) ) );
             System.out.println("Initialized assembly: " + assemblyName);
             assembly.selectModule(task);
             System.out.println("Module selected: " + assembly.getModules().get(task));
+
+            Instruction instruction = assembly.getInstr();
+            if(instruction==null)
+                System.out.println("ERROR: First instruction was null!");
+
+            currentInstr = instruction;
+
+            ((TextView) findViewById(R.id.textViewInst)).setText(currentInstr.getText());
         }
         catch(IOException e){
             e.printStackTrace();
