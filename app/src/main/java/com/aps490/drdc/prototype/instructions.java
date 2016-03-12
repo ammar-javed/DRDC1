@@ -90,7 +90,13 @@ public class instructions extends AppCompatActivity {
         }
         else {
             System.out.println("Figure name for this app is: " + figures.get(0));
-            showImage(figures.get(0));
+            String figureName;
+            if( currentInstr.hasFigure() )
+              figureName = currentInstr.getFigure();
+            else
+              figureName = figures.get(0);
+
+            showImage(figureName);
             //To load the image, use ...something...( getAssets().open(figures[0])   );
         }
     }

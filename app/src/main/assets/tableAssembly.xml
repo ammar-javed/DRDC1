@@ -1,0 +1,21 @@
+<data:assembly name="Main Landing Gear Wheel">
+  <module name="Assembly Procedure">
+    <figure path="test_step1.jpg"/>
+    <figure path="test_step2.jpg"/>
+    <figure path="test_step3.jpg"/>
+    <instructions>
+      <step>
+        <instruction>Use screws to attach side panels to shelf</instruction>
+        <figureName>test_step1.jpg</figureName>
+      </step>
+      <step>
+        <instruction>Attach second shelf to side panels</instruction>
+        <figureName>test_step2.jpg</figureName>
+      </step>
+      <step>
+        <instruction>Attach screw covers. Install dowels or hole plugs.</instruction>
+        <figureName>test_step3.jpg</figureName>
+      </step>
+    </instructions>
+  </module>
+</data:assembly>
