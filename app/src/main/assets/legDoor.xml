@@ -1,6 +1,6 @@
 <data:assembly name="Leg Door">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-8.jpg"/>
+    <figure path="6-4-8.jpg"/>
     <instructions>
       <step>
         <instruction>a. Ensure that ground safety locking pins are installed on all three gears.</instruction>

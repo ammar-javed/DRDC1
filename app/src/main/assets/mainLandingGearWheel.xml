@@ -1,6 +1,6 @@
 <data:assembly name="Main Landing Gear Wheel">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-11.jpg"/>
+    <figure path="6-4-11.jpg"/>
     <instructions>
       <step>
         <instruction>a. Chock aircraft and jack main gear on which wheel is being changed (see C-12-114-000/ MF-001).</instruction>
@@ -15,7 +15,7 @@
     </instructions>
   </module>
   <module name="Installation">
-    <figure path="CourseFigures/6-4-11.jpg"/>
+    <figure path="6-4-11.jpg"/>
     <instructions>
       <step>
         <instruction>a. Check that inner bearing spacer (5) is installed with taper facing towards wheel.TEXT</instruction>

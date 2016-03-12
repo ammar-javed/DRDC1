@@ -1,6 +1,6 @@
 <data:assembly name="Main Wheel Door Actuator Spigot">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-9.jpg"/>
+    <figure path="6-4-9.jpg"/>
     <instructions>
       <step>
         <instruction>a. Disconnect door actuator from spigot (1) in accordance with Paragraph 21, Step e.</instruction>

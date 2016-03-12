@@ -1,6 +1,6 @@
 <data:assembly name="Main Wheel Door Actuator">
   <module name="Removal">
-    <figure path = "CourseFigures/6-4-9.jpg"/>
+    <figure path = "6-4-9.jpg"/>
     <instructions>
       <step>
         <instruction>a. Connect ground power to aircraft. Open main wheel doors by operating hydraulic hand pump with ground servicing switch in port main gear bay selected to OPEN.</instruction>
@@ -20,7 +20,7 @@
     </instructions>
   </module>
   <module name = "Installation">
-    <figure path = "CourseFigures/6-4-9.jpg"/>
+    <figure path = "6-4-9.jpg"/>
     <instructions>
       <step>
         <instruction>a. Jack and steady aircraft (see C-12-114-000/ MF-001).</instruction>

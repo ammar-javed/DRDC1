@@ -1,6 +1,6 @@
 <data:assembly name="Main Landing Gear Uplock Actuator">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-4.jpg"/>
+    <figure path="6-4-4.jpg"/>
     <instructions>
       <step>
         <instruction>a. Remove main gear uplock assembly (5) as detailed in Paragraph 9.</instruction>
@@ -12,7 +12,7 @@
     </instructions>
   </module>
   <module name = "Installation">
-    <figure path="CourseFigures/6-4-4.jpg"/>
+    <figure path="6-4-4.jpg"/>
     <instructions>
       <step>
         <instruction>a. Position uplock actuator (11) (see Paragraph 11, Step b) in the two blocks (9) and secure assembly to brackets with two screws (12), washers and nuts.</instruction>

@@ -1,6 +1,6 @@
 <data:assembly name="Parking Brake Control Adjustment">
   <module name="Procedure">
-    <figure path="CourseFigures/6-4-13.jpg"/>
+    <figure path="6-4-13.jpg"/>
     <instructions>
       <step>
         <instruction>To adjust the parking brake control, see Figure 6-4-13.</instruction>

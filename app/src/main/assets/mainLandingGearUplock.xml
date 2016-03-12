@@ -1,6 +1,6 @@
 <data:assembly name="Main Landing Gear Uplock">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-5.jpg"/>
+    <figure path="6-4-5.jpg"/>
     <instructions>
       <step>
         <instruction>a. Remove side stay assembly (see Paragraph 7).</instruction>
@@ -17,8 +17,8 @@
     </instructions>
   </module>
   <module name = "Installation">
-    <figure path="CourseFigures/6-4-4.jpg"/>
-    <figure path="CourseFigures/6-4-5.jpg"/>
+    <figure path="6-4-4.jpg"/>
+    <figure path="6-4-5.jpg"/>
     <instructions>
       <step>
         <instruction>a. Ensure that uplock microswitch (17) and uplock actuator (11) are correctly installed and adjusted (see Paragraph 12).</instruction>

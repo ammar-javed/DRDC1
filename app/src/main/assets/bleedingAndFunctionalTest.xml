@@ -1,5 +1,5 @@
 <data:assembly name="Bleeding and Functional Test">
-  <module name="Bleeding and Functional Test Procedure">
+  <module name="Procedure">
     <instructions>
       <step>
         <instruction>a. Disconnect hose leading to one of the two brake units and connect a hydraulic hand pump to hose.</instruction>

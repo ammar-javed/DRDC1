@@ -1,6 +1,6 @@
 <data:assembly name="Main Landing Gear Actuator">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-2.jpg"/>
+    <figure path="6-4-2.jpg"/>
     <instructions>
       <step>
         <instruction>a. Jack and steady aircraft (see C-12-114-000/ MF-001).</instruction>
@@ -26,7 +26,7 @@
     </instructions>
   </module>
   <module name = "Installation">
-    <figure path="CourseFigures/6-4-2.jpg"/>
+    <figure path="6-4-2.jpg"/>
     <instructions>
       <step>
         <instruction>a. Offer up actuator in fully retracted and locked position. Connect hydraulic lines (4, 5 and 7) to their respective connections.</instruction>

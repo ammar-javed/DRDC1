@@ -1,6 +1,6 @@
 <data:assembly name="Main Landing Gear Door">
   <module name="Removal">
-    <figure path="CourseFigures/6-4-7.jpg"/>
+    <figure path="6-4-7.jpg"/>
     <instructions>
       <step>
         <instruction>a. Ensure that ground safety locking pins are installed on all three gear.</instruction>
@@ -27,8 +27,8 @@
     </instructions>
   </module>
   <module name = "Installation">
-    <figure path="CourseFigures/6-4-6.jpg"/>
-    <figure path="CourseFigures/6-4-7.jpg"/>
+    <figure path="6-4-6.jpg"/>
+    <figure path="6-4-7.jpg"/>
     <instructions>
       <step>
         <instruction>
