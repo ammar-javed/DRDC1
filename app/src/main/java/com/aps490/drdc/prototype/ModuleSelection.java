@@ -58,7 +58,7 @@ public class ModuleSelection extends AppCompatActivity implements Communications
 
     public void openSubAssemblyPage(View view) {
         // Do something in response to button
-        Intent intent = new Intent(this, sub_assembly.class);
+        Intent intent = new Intent(this, listView.class);
         startActivity(intent);
     }
 
