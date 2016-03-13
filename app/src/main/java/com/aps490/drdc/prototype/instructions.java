@@ -29,13 +29,14 @@ public class instructions extends AppCompatActivity {
     Instruction currentInstr;int task;
     private ImageView mDialog;
     ArrayList<String> figures;
-    Intent intent;
+    Intent returnIntent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        intent = getIntent();
+        Intent intent = getIntent();
+        returnIntent = new Intent(this, listView.class);
 
         System.out.println("Creating instructions activity.");
         String assemblyName = intent.getStringExtra("name");
@@ -153,11 +154,13 @@ public class instructions extends AppCompatActivity {
                     .setPositiveButton(R.string.finish, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // Launch main menu activity
+                            //TODO change to main menu
+                            startActivity(returnIntent);
                         }
                     })
                     .setNeutralButton(R.string.back, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
-                            startActivity(intent);
+                            //Do nothing but exit pop up
                         }
                     });
             // Create the AlertDialog object and return it
