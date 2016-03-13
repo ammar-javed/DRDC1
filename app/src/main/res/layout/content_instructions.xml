@@ -20,21 +20,32 @@
         android:layout_height="0dip"
         android:layout_weight="1"
         android:gravity="center|bottom"
-        android:orientation="vertical" >
+        android:orientation="horizontal" >
 
         <Button
             android:id="@+id/buttonInstPre"
             android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_vertical"
-            android:text="Get Previous Instruction" />
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:text="Previous Instruction"
+            android:onClick="getPreInstruction"/>
+
+        <Button
+            android:id="@+id/buttonFigures"
+            android:layout_width="145dp"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:text="Figures\r\n"
+            android:onClick="seeFigures"/>
+
         <Button
             android:id="@+id/buttonInstNext"
             android:layout_width="145dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="fill_vertical|right"
-            android:text="Get Previous Instruction"
+            android:layout_height="80dp"
+            android:layout_gravity="bottom"
+            android:text="Next Instruction"
             android:onClick="getNextInstruction"/>
+
     </LinearLayout>
 
 </LinearLayout>

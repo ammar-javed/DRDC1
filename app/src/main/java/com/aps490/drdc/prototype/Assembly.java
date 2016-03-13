@@ -126,6 +126,10 @@ public class Assembly {
     return modules;
   }
 
+  public void selectModule( int index ) {
+    selectModule(getModules().get(index));
+  }
+
   public void selectModule( String name ) {
     NodeList nList = doc.getElementsByTagName("module");
     for (int temp = 0; temp < nList.getLength(); temp++) {

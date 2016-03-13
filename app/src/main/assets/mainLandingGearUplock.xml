@@ -1,0 +1,50 @@
+<data:assembly name="Main Landing Gear Uplock">
+  <module name="Removal">
+    <figure path="6-4-5.jpg"/>
+    <instructions>
+      <step>
+        <instruction>a. Remove side stay assembly (see Paragraph 7).</instruction>
+      </step>
+      <step>
+        <instruction>b. Remove cotter pin, nut (18), plain and rubber washers (14), plain washer and bolt (13) securing uplock assembly to side stay shaft (16).</instruction>
+      </step>
+      <step>
+        <instruction>c. Remove assembly complete with uplock actuator (11) and uplock microswitch (17). Remove the two spacing washers (15) and laminated shim (19).</instruction>
+      </step>
+      <step>
+        <instruction>d. If required, remove uplock microswitch (17) and uplock actuator (11) (see Paragraph 11).</instruction>
+      </step>
+    </instructions>
+  </module>
+  <module name = "Installation">
+    <figure path="6-4-4.jpg"/>
+    <figure path="6-4-5.jpg"/>
+    <instructions>
+      <step>
+        <instruction>a. Ensure that uplock microswitch (17) and uplock actuator (11) are correctly installed and adjusted (see Paragraph 12).</instruction>
+      </step>
+      <step>
+        <instruction>b. With uplock in closed position, install limit switch. Adjust switch to set clearance between bottom of cam step and switch roller 0.381 ±0.127 mm (0.015 ±0.005 in.). Adjust switch bracket so that switch roller just contacts the face of cam step. Open lock and check that switch is energized. Close lock and recheck switch adjustment and lockwire switch in position.</instruction>
+      </step>
+      <step>
+        <instruction>c. Install the two spacing washers without shim (19). Locate uplock assembly (5), positioned downwards and inwards, on shaft (16) to align mounting holes.</instruction>
+      </step>
+      <step>
+        <instruction>d. Temporarily install retaining bolt (13).</instruction>
+      </step>
+      <step>
+        <instruction>e. Install side stay assembly on aircraft as detailed in Paragraph 8, locating a laminated shim (19) between the two washers (15) to obtain stipulated clearance.</instruction>
+      </step>
+      <step>
+        <instruction>f. Reinstall bolt (13), with plain and rubber (14) washers located as indicated, and secure with nut (18) and cotter pin. Carry out the postinstallation checks detailed in Paragraph 8, including those in referenced paragraphs.</instruction>
+        <note>Nut (18) shall only be tightened sufficiently to lightly trap rubber washers (14).</note>
+      </step>
+      <step>
+        <instruction>g. On satisfactory completion of installation and checks, install ground safety locking pin, disconnect ground power, lower aircraft to ground (see C-12-114-000/MF-001) and remove jacking equipment.</instruction>
+      </step>
+      <step>
+        <instruction>h. Ensure that all parts removed or disturbed during the course of these operations are locked and, where applicable, in safety.</instruction>
+      </step>
+    </instructions>
+  </module>
+</data:assembly>

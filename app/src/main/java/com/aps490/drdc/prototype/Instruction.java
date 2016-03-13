@@ -11,12 +11,14 @@ public class Instruction {
   private String text;
   private String warning;
   private String note; 
+  private String figureName; 
   private String subAssembly;
   
   public Instruction( String text, String warning, String note ){
     this.text = text;
     this.warning = warning;
     this.note = note;
+    this.figureName = null;
   }
 
   public Instruction( String text ){
@@ -24,6 +26,7 @@ public class Instruction {
     this.warning = null;
     this.note = null;
     this.subAssembly = null;
+    this.figureName = null;
   }
 
   public Instruction( Element step ){
@@ -31,6 +34,7 @@ public class Instruction {
     this.warning = null;
     this.note = null;
     this.subAssembly = null;
+    this.figureName = null;
     NodeList infoList = step.getChildNodes();
     for (int y = 0; y < infoList.getLength(); y++) {
       Node info = infoList.item(y);
@@ -42,6 +46,8 @@ public class Instruction {
         this.note = info.getTextContent();
       else if (info.getNodeName().equals( "assemblyFile" ) )
         this.subAssembly = info.getTextContent();
+      else if (info.getNodeName().equals( "figureName" ) )
+        this.figureName = info.getTextContent();
     }
     if( this.text == null ){
       System.out.println("Error: Instruction does not have text" );
@@ -74,6 +80,14 @@ public class Instruction {
 
   public boolean hasSubAssembly(){
     return ( this.subAssembly != null );
+  }
+
+  public String getFigure(){
+    return this.figureName;
+  }
+
+  public boolean hasFigure(){
+    return ( this.figureName != null );
   }
 }
 

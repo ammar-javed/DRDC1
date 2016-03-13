@@ -8,6 +8,7 @@ public class CourseModules{
   static {
       map = new HashMap<String, String>();
       map.put("Main Landing Gear", "mainLandingGear.xml" );
+      map.put("Test Table Assembly", "tableAssembly.xml" );
       map.put("Adjustment of Door Latch Mechanism", "adjustmentOfDoorLatchMechanism.xml" );
       map.put("Bleeding and Functional Test", "bleedingAndFunctionalTest.xml" );
       map.put("Brake Master Cylinder Adjustment", "brakeMasterCylinderAdjustment.xml" );

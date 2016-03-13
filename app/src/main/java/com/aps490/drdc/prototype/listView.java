@@ -47,7 +47,7 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Intent intent = new Intent(this, task.class);
-        intent.putExtra("position",position);
+        intent.putExtra("name", values[position]);
         startActivity(intent);
 
     }
