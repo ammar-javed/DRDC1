@@ -12,7 +12,7 @@
     <!-- Debug -->
     <string name="debug_tag">AMMAR</string>
 
-    <string name="leap_endpoint">ws://100.64.204.109:8889</string>
+    <string name="leap_endpoint">ws://192.168.2.24:8889</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>

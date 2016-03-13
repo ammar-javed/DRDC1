@@ -48,7 +48,6 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
             }
 
             hitView.performClick();
-            Log.i(Constants.TAG, "" + hitView.hasFocus());
 
         } catch (Exception e) {
             e.printStackTrace();

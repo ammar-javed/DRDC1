@@ -85,6 +85,13 @@ public class LeapActionReceiver extends BroadcastReceiver {
                 if (norm_point != null) {
                     //Log.d(Constants.TAG, "Pointer at (" + norm_point.x +", " +
                      //       norm_point.y + ")");
+                    View surface = rootView.findViewById(R.id.email_login_form);
+                    MotionEvent e = MotionEvent.obtain(SystemClock.uptimeMillis(),
+                            SystemClock.uptimeMillis(),
+                            MotionEvent.ACTION_HOVER_MOVE,
+                            norm_point.x, norm_point.y, 0);
+                    e.setSource(0x00002002);
+                    surface.dispatchGenericMotionEvent(e);
                 }
             }
 
@@ -121,12 +128,10 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
                             if (hitView != null) {
 
-                                //hitView.performClick();
                                 // Send relevant view ID back to main thread to handle
                                 Intent tappedViewIntent = new Intent();
                                 tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
                                 tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                                Log.i(Constants.TAG, "View ID before sending "+hitView.getId());
                                 tappedViewIntent.putExtra("viewID", hitView.getId());
                                 tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
                                 tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
@@ -140,7 +145,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
                 }
             }
         } catch (Exception e) {
-            Log.e(Constants.TAG, e.toString());
+            e.printStackTrace();
         }
     }
 
@@ -212,7 +217,8 @@ public class LeapActionReceiver extends BroadcastReceiver {
         Double y_norm = y - leapBoundYMin;
 
         Double x_norm_factor = x_norm / (leapBoundXMax - leapBoundXMin);
-        Double y_norm_factor = y_norm / (leapBoundYMax - leapBoundYMin);
+        Double y_norm_factor = ((leapBoundYMax - leapBoundYMin) - y_norm) / (leapBoundYMax - leapBoundYMin);
+        //Double y_norm_factor_flip = 1.0 - y_norm_factor;
 
         new_point.x = (int) (screenWidth * x_norm_factor);
         new_point.y = (int) (screenHeight * y_norm_factor);
