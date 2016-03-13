@@ -22,7 +22,7 @@ public class Assembly {
   private ArrayList<Instruction> instructions;
   public static final String ASSEMBLY_FILE_PATH = "";
   private String name;
-  private int instrIndex;
+  private volatile int instrIndex;
 
   public Assembly( String assemblyFile ) {
     try {
@@ -250,7 +250,13 @@ public class Assembly {
     return instr;
   }
 
+  public int currentInstrIndex() {
+    return this.instrIndex;
+  }
 
+  public int instrCount() {
+    return this.instructions.size();
+  }
 }
 
 
