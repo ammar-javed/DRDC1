@@ -27,4 +27,10 @@ public final class Constants {
 
     public static final String CLIENT_STOPPED =
             "STOPPED";
+
+    public static final int MESSAGE_TOAST = 5;
+
+    public static final String BLUETOOTH_CONNECTION_RESULT =
+            "BT_RESULT";
+
 }
