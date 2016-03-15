@@ -33,6 +33,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.aps490.drdc.LeapMotion.LeapActionReceiver;
+import com.aps490.drdc.LeapMotion.LeapTapEventReceiver;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -13,12 +13,12 @@
     android:background="@color/black">
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent">
 
         <com.aps490.drdc.customlayouts.DrawingView
             android:id="@+id/surfaceView"
-            android:layout_width="379dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
         <!-- Login progress -->
