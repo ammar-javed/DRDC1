@@ -68,11 +68,11 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
+//
+//        getSupportActionBar().setHomeButtonEnabled(true);
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /**
          * Set up websocket to listen to leapmotion.
@@ -135,7 +135,7 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
         mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
 
         // Pass in the root activity view as well as context.
-        // TODO: Replace the root view passed in for ever activity.
+        // TODO: Replace the root view passed in for every activity.
         mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().getRootView());
 
         // Will not process on main thread.

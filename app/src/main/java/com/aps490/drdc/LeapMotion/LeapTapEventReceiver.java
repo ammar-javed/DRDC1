@@ -47,6 +47,8 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
             int viewID = intent.getIntExtra("viewID", 0);
             View hitView = ((Activity) context).findViewById(viewID);
 
+            Log.i(Constants.TAG, hitView.getClass().toString());
+
             if (hitView instanceof ListView) {
                 int pos = intent.getIntExtra("listPos", -1);
                 Log.i(Constants.TAG, "List view position: " + pos);

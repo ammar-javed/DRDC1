@@ -190,7 +190,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
 
         // Pass in the root activity view as well as context.
-        // TODO: Replace the root view passed in for ever activity.
+        // TODO: Replace the root view passed in for every activity.
         mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().findViewById(R.id.login_activity));
 
         // Will not process on main thread.

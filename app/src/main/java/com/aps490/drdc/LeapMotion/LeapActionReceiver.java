@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.ListView;
+import android.widget.Toolbar;
 
 import com.aps490.drdc.customlayouts.DrawingView;
 import com.aps490.drdc.prototype.Constants;
@@ -271,7 +272,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
             nextChild.getHitRect(hitRect);
 
-            if ( !(nextChild instanceof DrawingView) ) {
+            if ( !(nextChild instanceof DrawingView && !(nextChild instanceof android.support.v7.widget.Toolbar)) ) {
                 if (hitRect.contains(tap.x, tap.y)) {
                     hit = nextChild;
                     //Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
