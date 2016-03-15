@@ -10,6 +10,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -42,6 +43,10 @@ public class instructions extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         try {
             System.out.println("Attempting to load assembly " + assemblyName);
             assembly = new Assembly( getAssets().open(CourseModules.map.get(assemblyName) ) );
@@ -58,6 +63,7 @@ public class instructions extends AppCompatActivity {
             ((TextView) findViewById(R.id.textViewInst)).setText(currentInstr.getText());
 
             figures = assembly.getFigures();
+
         }
         catch(IOException e){
             e.printStackTrace();
@@ -101,7 +107,7 @@ public class instructions extends AppCompatActivity {
         }
     }
 
-    public void showImage( String fileName ) {
+    public void showImage(String fileName ) {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(
@@ -124,6 +130,16 @@ public class instructions extends AppCompatActivity {
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT));
         builder.show();
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                Intent homeIntent = new Intent(this, task.class);
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+        }
+        return (super.onOptionsItemSelected(menuItem));
     }
 
 }
