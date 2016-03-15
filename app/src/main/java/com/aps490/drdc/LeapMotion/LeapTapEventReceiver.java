@@ -1,4 +1,4 @@
-package com.aps490.drdc.prototype;
+package com.aps490.drdc.LeapMotion;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -8,6 +8,8 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+
+import com.aps490.drdc.prototype.Constants;
 
 /**
  * Created by JollyRancher on 16-03-11.

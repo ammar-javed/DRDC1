@@ -1,4 +1,4 @@
-package com.aps490.drdc.prototype;
+package com.aps490.drdc.LeapMotion;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -15,6 +15,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 
 import com.aps490.drdc.customlayouts.DrawingView;
+import com.aps490.drdc.prototype.Constants;
+import com.aps490.drdc.prototype.R;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
