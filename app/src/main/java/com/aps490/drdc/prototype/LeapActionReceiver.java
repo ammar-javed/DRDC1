@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
@@ -14,10 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 
+import com.aps490.drdc.customlayouts.DrawingView;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
  * Created by JollyRancher on 16-02-21.
@@ -37,6 +36,10 @@ public class LeapActionReceiver extends BroadcastReceiver {
     private final int leapBoundYMin = 100;
 
     private final int leapBoundYMax = 450;
+
+    private Boolean hit = false;
+
+    private Long timeStamp = SystemClock.uptimeMillis();
 
     // The root activity view to traverse for a screen tap hit
     private View rootView;
@@ -68,31 +71,76 @@ public class LeapActionReceiver extends BroadcastReceiver {
     }
 
     private void processPayLoad(Context context, Intent intent) {
+
+        Long newTimeStamp = SystemClock.uptimeMillis();
+
+        if ( (newTimeStamp - timeStamp) < 700 ) {
+            return;
+        }
+
         String payload = intent.getStringExtra("payload");
 
         try {
             JSONObject frame = new JSONObject(payload);
 
-            // Pointables
-            JSONArray pointables = frame.getJSONArray("pointables");
+            try {
+                // Pointables
+                JSONArray pointables = frame.getJSONArray("pointables");
 
-            if (pointables.length() != 0) {
-                Double x = pointables.getJSONObject(0).getJSONArray("tipPosition").getDouble(0);
-                Double y = pointables.getJSONObject(0).getJSONArray("tipPosition").getDouble(1);
+                if (pointables.length() != 0) {
 
-                Point norm_point = normalizePointToScreenDevice(x, y);
+                    Double x = 0.0;
+                    Double y = 0.0;
 
-                if (norm_point != null) {
-                    //Log.d(Constants.TAG, "Pointer at (" + norm_point.x +", " +
-                     //       norm_point.y + ")");
-                    View surface = rootView.findViewById(R.id.email_login_form);
-                    MotionEvent e = MotionEvent.obtain(SystemClock.uptimeMillis(),
-                            SystemClock.uptimeMillis(),
-                            MotionEvent.ACTION_HOVER_MOVE,
-                            norm_point.x, norm_point.y, 0);
-                    e.setSource(0x00002002);
-                    surface.dispatchGenericMotionEvent(e);
+                    switch (pointables.length()) {
+                        case 1:
+                            x = pointables.getJSONObject(0).getJSONArray("tipPosition").getDouble(0);
+                            y = pointables.getJSONObject(0).getJSONArray("tipPosition").getDouble(1);
+
+                            break;
+                        case 2:
+                            x = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(0);
+                            y = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(1);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    Point norm_point = normalizePointToScreenDevice(x, y);
+
+                    if (norm_point != null) {
+
+                        if (pointables.length() > 1 && !hit) {
+                            View hitView = findHitView(rootView, norm_point);
+
+                            if (hitView != null) {
+
+                                // Send relevant view ID back to main thread to handle
+                                Intent tappedViewIntent = new Intent();
+                                tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
+                                tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                tappedViewIntent.putExtra("viewID", hitView.getId());
+                                tappedViewIntent.putExtra("hitX", norm_point.x);
+                                tappedViewIntent.putExtra("hitY", norm_point.y);
+                                context.sendBroadcast(tappedViewIntent);
+                                hit = true;
+                            }
+                        } else {
+                            View surface = rootView.findViewById(R.id.surfaceView);
+                            if (surface != null) {
+                                MotionEvent e = MotionEvent.obtain(SystemClock.uptimeMillis(),
+                                        SystemClock.uptimeMillis(),
+                                        MotionEvent.ACTION_HOVER_MOVE,
+                                        norm_point.x, norm_point.y, 0);
+                                e.setSource(0x00002002);
+                                surface.dispatchGenericMotionEvent(e);
+                                hit = false;
+                            }
+                        }
+                    }
                 }
+            } catch (Exception e) {
+                Log.e(Constants.TAG, "Error in Pointables: ", e);
             }
 
 
@@ -104,41 +152,48 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
                 switch (gestureType){
                     case "swipe":
-                        String state = gesture.getString("state");
-                        if (state.equals("stop")){
-                            Double swipeDirectionX = gesture.getJSONArray("direction").getDouble(0);
-                            if (swipeDirectionX > 0) {
-                                Log.i(Constants.TAG, "You swiped to the right! Open menu");
-                            } else if (swipeDirectionX <= 0) {
-                                Log.i(Constants.TAG, "You swiped to the left! Close menu");
+                        try {
+                            String state = gesture.getString("state");
+                            if (state.equals("stop")) {
+                                Double swipeDirectionX = gesture.getJSONArray("direction").getDouble(0);
+                                if (swipeDirectionX > 0) {
+                                    Log.i(Constants.TAG, "You swiped to the right! Open menu");
+                                } else if (swipeDirectionX <= 0) {
+                                    Log.i(Constants.TAG, "You swiped to the left! Close menu");
+                                }
                             }
+                        } catch (Exception e) {
+                            Log.i(Constants.TAG, "Error in Gesture (Swipe): ", e);
                         }
                         break;
                     case "screenTap":
-
-                        Double tapX = gesture.getJSONArray("position").getDouble(0);
-                        Double tapY = gesture.getJSONArray("position").getDouble(1);
-
-                        Point norm_tap_coord = normalizePointToScreenDevice(tapX, tapY);
-
-                        if (norm_tap_coord != null) {
-                            Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
-
-                            View hitView = findHitView(rootView, norm_tap_coord);
-
-                            if (hitView != null) {
-
-                                // Send relevant view ID back to main thread to handle
-                                Intent tappedViewIntent = new Intent();
-                                tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
-                                tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                                tappedViewIntent.putExtra("viewID", hitView.getId());
-                                tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
-                                tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
-                                context.sendBroadcast(tappedViewIntent);
-
-                            }
-                        }
+//                        try {
+//                            Double tapX = gesture.getJSONArray("position").getDouble(0);
+//                            Double tapY = gesture.getJSONArray("position").getDouble(1);
+//
+//                            Point norm_tap_coord = normalizePointToScreenDevice(tapX, tapY);
+//
+//                            if (norm_tap_coord != null) {
+//                                Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
+//
+//                                View hitView = findHitView(rootView, norm_tap_coord);
+//
+//                                if (hitView != null) {
+//
+//                                    // Send relevant view ID back to main thread to handle
+//                                    Intent tappedViewIntent = new Intent();
+//                                    tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
+//                                    tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+//                                    tappedViewIntent.putExtra("viewID", hitView.getId());
+//                                    tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
+//                                    tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
+//                                    context.sendBroadcast(tappedViewIntent);
+//
+//                                }
+//                            }
+//                        } catch (Exception e) {
+//                            Log.e(Constants.TAG, "Error in Gestures (Tap): ", e);
+//                        }
                         break;
                     default:
                         //Log.i(Constants.TAG, "Gesture not recognized yet!");
@@ -176,10 +231,13 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
             nextChild.getHitRect(hitRect);
 
-            if ( hitRect.contains(tap.x, tap.y) ) {
-                hit = nextChild;
-                Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
-                return hit;
+            if ( !(nextChild instanceof DrawingView) ) {
+                if (hitRect.contains(tap.x, tap.y)) {
+                    hit = nextChild;
+                    //Log.i(Constants.TAG, "Child hit rect:" + hitRect.flattenToString() + " Class: " + nextChild.getClass());
+
+                    return hit;
+                }
             }
         }
         return hit;
