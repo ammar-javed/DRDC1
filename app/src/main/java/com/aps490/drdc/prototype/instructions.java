@@ -13,6 +13,7 @@ import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -30,12 +31,13 @@ public class instructions extends AppCompatActivity {
     private ImageView mDialog;
     ArrayList<String> figures;
     Intent returnIntent;
+    Intent intent;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Intent intent = getIntent();
+        intent = getIntent();
         returnIntent = new Intent(this, listView.class);
 
         System.out.println("Creating instructions activity.");
@@ -46,6 +48,10 @@ public class instructions extends AppCompatActivity {
         setContentView(R.layout.activity_instructions);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        getSupportActionBar().setHomeButtonEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         try {
             System.out.println("Attempting to load assembly " + assemblyName);
@@ -64,6 +70,7 @@ public class instructions extends AppCompatActivity {
 
             updateProgress();
             figures = assembly.getFigures();
+
         }
         catch(IOException e){
             e.printStackTrace();
@@ -109,7 +116,7 @@ public class instructions extends AppCompatActivity {
         }
     }
 
-    public void showImage( String fileName ) {
+    public void showImage(String fileName ) {
         Dialog builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(
@@ -135,8 +142,8 @@ public class instructions extends AppCompatActivity {
     }
 
     public void updateProgress() {
-        ((TextView) findViewById(R.id.textViewInstrCount)).setText("Instruction " +
-                (assembly.currentInstrIndex() + 1) + "/" + assembly.instrCount());
+        ((TextView) findViewById(R.id.textViewInstrCount)).setText(
+                "Instruction " + (assembly.currentInstrIndex() + 1) + "/" + assembly.instrCount());
     }
 
     public void finishPopUp() {
@@ -166,6 +173,18 @@ public class instructions extends AppCompatActivity {
             // Create the AlertDialog object and return it
             return builder.create();
         }
+    }
+
+    public boolean onOptionsItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()) {
+            case android.R.id.home:
+                Intent homeIntent = new Intent(this, task.class);
+                homeIntent.putExtra("name", intent.getStringExtra("name"));
+                homeIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(homeIntent);
+        }
+        return (super.onOptionsItemSelected(menuItem));
+
     }
 
 }

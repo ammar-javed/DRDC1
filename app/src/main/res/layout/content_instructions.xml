@@ -1,60 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/db1_root"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.aps490.drdc.prototype.listView"
+    tools:showIn="@layout/activity_list_view"
     android:background="@color/black">
 
-    <TextView
-        android:id="@+id/textViewInstrCount"
-        android:text="deneme"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="0"
-        android:textColor="@color/white"/>
-
-    <TextView
-        android:id="@+id/textViewInst"
-        android:text="deneme"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_weight="0"
-        android:textColor="@color/white"/>
-
-    <LinearLayout
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/db1_root"
         android:layout_width="match_parent"
-        android:layout_height="0dip"
-        android:layout_weight="1"
-        android:gravity="center|bottom"
-        android:orientation="horizontal" >
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/black">
 
-        <Button
-            android:id="@+id/buttonInstPre"
-            android:layout_width="145dp"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:text="Previous Instruction"
-            android:onClick="getPreInstruction"/>
+        <TextView
+            android:id="@+id/textViewInstrCount"
+            android:text="deneme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0"
+            android:textColor="@color/white"/>
 
-        <Button
-            android:id="@+id/buttonFigures"
-            android:layout_width="145dp"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:text="Figures\r\n"
-            android:onClick="seeFigures"/>
+        <TextView
+            android:id="@+id/textViewInst"
+            android:text="deneme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0"
+            android:textColor="@color/white"/>
 
-        <Button
-            android:id="@+id/buttonInstNext"
-            android:layout_width="145dp"
-            android:layout_height="80dp"
-            android:layout_gravity="bottom"
-            android:text="Next Instruction"
-            android:onClick="getNextInstruction"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/buttonInstPre"
+                android:layout_width="145dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:text="Previous Instruction"
+                android:onClick="getPreInstruction"/>
+
+            <Button
+                android:id="@+id/buttonFigures"
+                android:layout_width="145dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:text="Figures\r\n"
+                android:onClick="seeFigures"/>
+
+            <Button
+                android:id="@+id/buttonInstNext"
+                android:layout_width="145dp"
+                android:layout_height="80dp"
+                android:layout_gravity="bottom"
+                android:text="Next Instruction"
+                android:onClick="getNextInstruction"/>
+
+        </LinearLayout>
 
     </LinearLayout>
-
-</LinearLayout>
+</RelativeLayout>
