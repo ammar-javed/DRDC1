@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
-import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
@@ -13,6 +12,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ListView;
 
 import com.aps490.drdc.customlayouts.DrawingView;
 import com.aps490.drdc.prototype.Constants;
@@ -43,6 +43,10 @@ public class LeapActionReceiver extends BroadcastReceiver {
     private Context mCurrentContext;
 
     private Boolean hit = false;
+
+    private boolean isListElem = false;
+
+    private int listElemPos = -1;
 
     // The root activity view to traverse for a screen tap hit
     private View rootView;
@@ -128,6 +132,13 @@ public class LeapActionReceiver extends BroadcastReceiver {
                                 Intent tappedViewIntent = new Intent();
                                 tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
                                 tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+
+                                if (isListElem) {
+                                    tappedViewIntent.putExtra("listPos", listElemPos);
+                                    isListElem = false;
+                                    listElemPos = -1;
+                                }
+
                                 tappedViewIntent.putExtra("viewID", hitView.getId());
                                 tappedViewIntent.putExtra("hitX", norm_point.x);
                                 tappedViewIntent.putExtra("hitY", norm_point.y);
@@ -242,12 +253,18 @@ public class LeapActionReceiver extends BroadcastReceiver {
             View nextChild = ( (ViewGroup) rV).getChildAt(i);
 
             try {
-                if ( ( (ViewGroup) nextChild).getChildCount() > 0) {
+                if ( nextChild instanceof ListView ){
+                    hit = findHitListViewElement( (ListView) nextChild, tap);
+                    if (hit != null) {
+                        return hit;
+                    }
+                } else if ( ( (ViewGroup) nextChild).getChildCount() > 0) {
                     hit = findHitView(nextChild, tap);
                     if (hit != null) {
                         return hit;
                     }
                 }
+
             } catch (ClassCastException e) {
                // Log.e(Constants.ERROR, e.toString());
             }
@@ -264,6 +281,25 @@ public class LeapActionReceiver extends BroadcastReceiver {
             }
         }
         return hit;
+    }
+
+    private View findHitListViewElement(ListView listView, Point p) {
+        Rect hitRect;
+
+        for (int i = 0; i < listView.getChildCount(); ++i) {
+            hitRect = new Rect();
+            View elem = listView.getChildAt(i);
+
+            elem.getHitRect(hitRect);
+
+            if (hitRect.contains(p.x, p.y)) {
+                listElemPos = listView.getPositionForView(elem);
+                isListElem = true;
+                return listView;
+            }
+        }
+
+        return null;
     }
 
     /**

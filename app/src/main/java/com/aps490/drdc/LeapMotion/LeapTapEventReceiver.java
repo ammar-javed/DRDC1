@@ -1,6 +1,7 @@
 package com.aps490.drdc.LeapMotion;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +9,7 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ListView;
 
 import com.aps490.drdc.prototype.Constants;
 
@@ -17,7 +19,6 @@ import com.aps490.drdc.prototype.Constants;
 public class LeapTapEventReceiver extends BroadcastReceiver {
 
     private Context mContext;
-//    private Long timeStamp = SystemClock.uptimeMillis();
 
     public LeapTapEventReceiver(Context context) {
         super();
@@ -31,12 +32,6 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
 
         switch (action) {
             case Constants.LEAP_TAP_RELEVANT_VIEW:
-//                Long newTimeStamp = SystemClock.uptimeMillis();
-//
-//                if ((newTimeStamp - timeStamp) > 400) {
-//                    simulateTapOnView(context, intent);
-//                    timeStamp = newTimeStamp;
-//                }
 
                 simulateTapOnView(context, intent);
 
@@ -52,6 +47,15 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
             int viewID = intent.getIntExtra("viewID", 0);
             View hitView = ((Activity) context).findViewById(viewID);
 
+            if (hitView instanceof ListView) {
+                int pos = intent.getIntExtra("listPos", -1);
+                Log.i(Constants.TAG, "List view position: " + pos);
+                ListView lView = (ListView) hitView;
+                lView.performItemClick(lView.getAdapter().getView(pos, null, null), pos,
+                        lView.getAdapter().getItemId(pos));
+
+                return;
+            }
 
             if (hitView.getClass().equals("android.support.design.widget.TextInputLayout")) {
                 ((EditText) hitView).requestFocus();
