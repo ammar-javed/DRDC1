@@ -21,6 +21,15 @@
         android:background="@color/black">
 
         <TextView
+            android:id="@+id/textViewInstrCount"
+            android:text="deneme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_weight="0"
+            android:textColor="@color/white"/>
+
+        <TextView
             android:id="@+id/textViewInst"
             android:text="deneme"
             android:layout_width="fill_parent"

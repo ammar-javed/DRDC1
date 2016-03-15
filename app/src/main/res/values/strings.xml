@@ -65,6 +65,8 @@
     <string name="title_activity_list_view">listView</string>
     <string name="title_activity_task">task</string>
     <string name="title_activity_instructions">instructions</string>
-
+    <string name="finishPopUp">Congratulations, you have completed this assembly!</string>
+    <string name="finish">Main Menu</string>
+    <string name="back">Keep working</string>
 
 </resources>
