@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.AsyncTask;
 import android.os.SystemClock;
 import android.util.Log;
 import android.view.Display;
@@ -37,9 +38,9 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
     private final int leapBoundYMax = 450;
 
-    private Boolean hit = false;
+    private Context mCurrentContext;
 
-    private Long timeStamp = SystemClock.uptimeMillis();
+    private Boolean hit = false;
 
     // The root activity view to traverse for a screen tap hit
     private View rootView;
@@ -59,11 +60,14 @@ public class LeapActionReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
+        mCurrentContext = context;
         String action = intent.getAction();
 
         switch (action) {
             case Constants.LEAP_PAYLOAD_TO_PROCESS:
+
                 processPayLoad(context, intent);
+
                 break;
             default:
                 break;
@@ -72,16 +76,19 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
     private void processPayLoad(Context context, Intent intent) {
 
-        Long newTimeStamp = SystemClock.uptimeMillis();
-
-        if ( (newTimeStamp - timeStamp) < 700 ) {
-            return;
-        }
-
         String payload = intent.getStringExtra("payload");
 
         try {
             JSONObject frame = new JSONObject(payload);
+
+            /**
+             * This is where we parse any pointables. If one finger (Index) is deteced, parse it's
+             * location coordinate and send it to the DrawerView in the activity to draw on screen.
+             *
+             * If two fingers were detected (Thumb and Index) then it is a click; parse the coordinate
+             * from the index finger, and notify theLeapTapEventReceivers (via broadcast) that a
+             * click was performed.
+             */
 
             try {
                 // Pointables
@@ -143,6 +150,9 @@ public class LeapActionReceiver extends BroadcastReceiver {
                 Log.e(Constants.TAG, "Error in Pointables: ", e);
             }
 
+            /**
+             * Parse any gestures and
+             */
 
             // Gestures
             if (frame.getJSONArray("gestures").length() != 0) {
@@ -157,9 +167,9 @@ public class LeapActionReceiver extends BroadcastReceiver {
                             if (state.equals("stop")) {
                                 Double swipeDirectionX = gesture.getJSONArray("direction").getDouble(0);
                                 if (swipeDirectionX > 0) {
-                                    Log.i(Constants.TAG, "You swiped to the right! Open menu");
+                                    Log.i(Constants.TAG, "You swiped to the right!");
                                 } else if (swipeDirectionX <= 0) {
-                                    Log.i(Constants.TAG, "You swiped to the left! Close menu");
+                                    Log.i(Constants.TAG, "You swiped to the left!");
                                 }
                             }
                         } catch (Exception e) {
@@ -167,33 +177,44 @@ public class LeapActionReceiver extends BroadcastReceiver {
                         }
                         break;
                     case "screenTap":
-//                        try {
-//                            Double tapX = gesture.getJSONArray("position").getDouble(0);
-//                            Double tapY = gesture.getJSONArray("position").getDouble(1);
-//
-//                            Point norm_tap_coord = normalizePointToScreenDevice(tapX, tapY);
-//
-//                            if (norm_tap_coord != null) {
-//                                Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
-//
-//                                View hitView = findHitView(rootView, norm_tap_coord);
-//
-//                                if (hitView != null) {
-//
-//                                    // Send relevant view ID back to main thread to handle
-//                                    Intent tappedViewIntent = new Intent();
-//                                    tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
-//                                    tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
-//                                    tappedViewIntent.putExtra("viewID", hitView.getId());
-//                                    tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
-//                                    tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
-//                                    context.sendBroadcast(tappedViewIntent);
-//
-//                                }
-//                            }
-//                        } catch (Exception e) {
-//                            Log.e(Constants.TAG, "Error in Gestures (Tap): ", e);
-//                        }
+
+                        /**
+                         * I am no longer looking to rely on screenTap as an indication of a click.
+                         * When a tap is registered on the leap, the difference in coordinates
+                         * compared to the last known pointable coordinate is too different, so the
+                         * click ends up being elsewhere on the screen/element.
+                         *
+                         * See The pointables section above for the rest of description.
+                         */
+/*                        try {
+                            Double tapX = gesture.getJSONArray("position").getDouble(0);
+                            Double tapY = gesture.getJSONArray("position").getDouble(1);
+
+                            Point norm_tap_coord = normalizePointToScreenDevice(tapX, tapY);
+
+                            if (norm_tap_coord != null) {
+                                Log.i(Constants.TAG, "Screen Tap at " + norm_tap_coord.x + " " + norm_tap_coord.y);
+
+                                View hitView = findHitView(rootView, norm_tap_coord);
+
+                                if (hitView != null) {
+
+                                    // Send relevant view ID back to main thread to handle
+                                    Intent tappedViewIntent = new Intent();
+                                    tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
+                                    tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                    tappedViewIntent.putExtra("viewID", hitView.getId());
+                                    tappedViewIntent.putExtra("hitX", norm_tap_coord.x);
+                                    tappedViewIntent.putExtra("hitY", norm_tap_coord.y);
+                                    context.sendBroadcast(tappedViewIntent);
+
+                                }
+                            }
+                        } catch (Exception e) {
+                            Log.e(Constants.TAG, "Error in Gestures (Tap): ", e);
+                        }
+*/
+
                         break;
                     default:
                         //Log.i(Constants.TAG, "Gesture not recognized yet!");
