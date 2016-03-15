@@ -66,29 +66,38 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    /*
+    /**
      * Websocket connection
      */
     private WebSocketConnection mConnection;
 
-    /*
+    /**
      * Websocket connect handler, specified in onCreate
      */
     private WebSocketHandler mConnectionHandler;
 
-    /*
+    /**
      * Reference to URL websocket client will connect to,
      *
      */
     private String url;
 
+    /**
+     * Seperate thread handler to process leap motion frames
+     */
     HandlerThread mHandlerThread;
     Looper mLooper;
     Handler mHandler;
 
+    /**
+     * Leap motion JSON frame receiver and processor
+     */
     LeapActionReceiver mReceiver;
     IntentFilter mLeapProcessFilter;
 
+    /**
+     * Receives and performs leap tap events
+     */
     LeapTapEventReceiver mLeapTapReceiver;
     IntentFilter mLeapTapFilter;
 
@@ -97,6 +106,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        /**
+         * Set up websocket to listen to leapmotion.
+         */
         Resources res = getResources();
         url = String.format(res.getString(R.string.leap_endpoint));
 
@@ -163,6 +175,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
 
+        /**
+         * Set up leap motion receiveres
+         */
         // Set up new thread and handler for broadcast receiver
         // to process LeapActionReceiver.
         mHandlerThread = new HandlerThread("LeapProcessingThread");
@@ -175,6 +190,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
 
         // Pass in the root activity view as well as context.
+        // TODO: Replace the root view passed in for ever activity.
         mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().findViewById(R.id.login_activity));
 
         // Will not process on main thread.
