@@ -123,6 +123,7 @@ public class ModuleSelection extends AppCompatActivity implements Communications
             Toast.makeText(this, "Your device does not support bluetooth", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Your device supports bluetooth", Toast.LENGTH_SHORT).show();
+            Log.i(Constants.TAG, "mBluetoothAdapter not null.");
         }
 
         // turn bluetooth on if off
@@ -130,6 +131,7 @@ public class ModuleSelection extends AppCompatActivity implements Communications
             Intent enableBtIntent = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBtIntent, RESULT_OK);
         }
+
     }
 
 
@@ -161,6 +163,7 @@ public class ModuleSelection extends AppCompatActivity implements Communications
         // socket listening to incoming connection
         private BluetoothServerSocket mmServerSocket = null;
         private InputStream mmInputStream;
+        private boolean running = false;
 
 
         // constructor
@@ -175,6 +178,8 @@ public class ModuleSelection extends AppCompatActivity implements Communications
                 // MY_UUID is the app's UUID string, also used by the client code
                 //tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
                 tmp = mBluetoothAdapter.listenUsingRfcommWithServiceRecord(mmDevice.getName(), MY_UUID);
+                Log.i(Constants.TAG, "listenUsingRfcommWithServiceRecord returned");
+                running = true;
             } catch (IOException e) {
                 Log.e(Constants.TAG, "mmServerSocket failed", e);
             }
@@ -191,11 +196,12 @@ public class ModuleSelection extends AppCompatActivity implements Communications
 
             // Accept an incoming socket connection
             // Keep listening until a socket is returned or exception occurs
-            while (mmSocket == null) {
+            while (running) {
                 try {
                     mmSocket = mmServerSocket.accept();
+                    running = false;
 
-                } catch (IOException e) {
+                } catch (Exception e) {
                     Log.e(Constants.TAG, "IOException: accept() failed " + e);
                     break;
                 }
@@ -226,7 +232,9 @@ public class ModuleSelection extends AppCompatActivity implements Communications
          */
         public void cancel() {
             try {
-                mmServerSocket.close();
+                if (mmServerSocket != null) {
+                    mmServerSocket.close();
+                }
             } catch (IOException e) {
 
             }
