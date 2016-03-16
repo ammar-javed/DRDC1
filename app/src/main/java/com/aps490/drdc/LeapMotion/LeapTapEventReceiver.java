@@ -28,7 +28,8 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
 
-        String action = intent.getAction();
+        String action = intent.getStringExtra("leapAction");
+        Log.i(Constants.TAG, "Got intent with action:" + action);
 
         switch (action) {
             case Constants.LEAP_TAP_RELEVANT_VIEW:

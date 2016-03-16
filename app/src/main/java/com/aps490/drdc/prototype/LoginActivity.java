@@ -208,7 +208,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         // Register new receiver to process tap events on UI elements
         // will run on main thread, so allow access to UI.
-        mLeapTapFilter = new IntentFilter(Constants.LEAP_TAP_RELEVANT_VIEW);
+        mLeapTapFilter = new IntentFilter(Constants.LEAP_INTERACT_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
         mLeapTapReceiver = new LeapTapEventReceiver(this.getApplicationContext());
 

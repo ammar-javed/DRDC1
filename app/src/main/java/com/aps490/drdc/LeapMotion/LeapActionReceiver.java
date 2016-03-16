@@ -87,6 +87,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
         try {
             JSONObject frame = new JSONObject(payload);
+            JSONArray gestures = frame.getJSONArray("gestures");
 
             /**
              * This is where we parse any pointables. If one finger (Index) is deteced, parse it's
@@ -101,7 +102,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
                 // Pointables
                 JSONArray pointables = frame.getJSONArray("pointables");
 
-                if (pointables.length() != 0) {
+                if (pointables.length() != 0 && gestures.length() == 0) {
 
                     Double x = 0.0;
                     Double y = 0.0;
@@ -126,13 +127,15 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
                         if (pointables.length() > 1 && !hit) {
                             View hitView = findHitView(rootView, norm_point);
+                            Log.i(Constants.TAG, hitView.getClass().toString());
 
                             if (hitView != null) {
 
                                 // Send relevant view ID back to main thread to handle
                                 Intent tappedViewIntent = new Intent();
-                                tappedViewIntent.setAction(Constants.LEAP_TAP_RELEVANT_VIEW);
+                                tappedViewIntent.setAction(Constants.LEAP_INTERACT_RELEVANT_VIEW);
                                 tappedViewIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                tappedViewIntent.putExtra("leapAction", Constants.LEAP_TAP_RELEVANT_VIEW);
 
                                 if (isListElem) {
                                     tappedViewIntent.putExtra("listPos", listElemPos);
@@ -169,8 +172,8 @@ public class LeapActionReceiver extends BroadcastReceiver {
              */
 
             // Gestures
-            if (frame.getJSONArray("gestures").length() != 0) {
-                JSONObject gesture = frame.getJSONArray("gestures").getJSONObject(0);
+            if (gestures.length() != 0) {
+                JSONObject gesture = gestures.getJSONObject(0);
 
                 String gestureType = gesture.getString("type");
 
@@ -180,11 +183,21 @@ public class LeapActionReceiver extends BroadcastReceiver {
                             String state = gesture.getString("state");
                             if (state.equals("stop")) {
                                 Double swipeDirectionX = gesture.getJSONArray("direction").getDouble(0);
+                                Intent swipeIntent = new Intent();
+                                swipeIntent.setAction(Constants.LEAP_INTERACT_RELEVANT_VIEW);
+                                swipeIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                                swipeIntent.putExtra("leapAction", Constants.SWIPE_RELEVANT_VIEW);
+
                                 if (swipeDirectionX > 0) {
+                                    swipeIntent.putExtra("swipeDirection", Constants.LEAP_SWIPE_RIGHT);
                                     Log.i(Constants.TAG, "You swiped to the right!");
                                 } else if (swipeDirectionX <= 0) {
                                     Log.i(Constants.TAG, "You swiped to the left!");
+                                    swipeIntent.putExtra("swipeDirection", Constants.LEAP_SWIPE_LEFT);
                                 }
+
+                                context.sendBroadcast(swipeIntent);
+
                             }
                         } catch (Exception e) {
                             Log.i(Constants.TAG, "Error in Gesture (Swipe): ", e);

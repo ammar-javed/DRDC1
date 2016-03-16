@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
+import android.os.SystemClock;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
@@ -205,7 +206,7 @@ public class instructions extends AppCompatActivity {
 
         // Register new receiver to process tap events on UI elements
         // will run on main thread, so allow access to UI.
-        mLeapTapFilter = new IntentFilter(Constants.LEAP_TAP_RELEVANT_VIEW);
+        mLeapTapFilter = new IntentFilter(Constants.LEAP_INTERACT_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
         mLeapTapReceiver = new InstructionsLeapTapEventReceiver(this.getApplicationContext());
 
@@ -262,7 +263,7 @@ public class instructions extends AppCompatActivity {
         }
     }
 
-    public void getPreInstruction(View view) {
+    public void getPreInstruction() {
         Instruction instruction = assembly.getPreviousInstr();
         if(instruction!=null)
             currentInstr = instruction;
@@ -271,7 +272,7 @@ public class instructions extends AppCompatActivity {
         updateProgress();
     }
 
-    public void getNextInstruction(View view) {
+    public void getNextInstruction() {
         Instruction instruction = assembly.getInstr();
         if(instruction!=null) {
             currentInstr = instruction;
@@ -382,6 +383,8 @@ public class instructions extends AppCompatActivity {
 
         private Context mContext;
 
+        private long lastSwipe = SystemClock.uptimeMillis();
+
         public InstructionsLeapTapEventReceiver(Context context) {
             super();
             mContext = context;
@@ -390,7 +393,7 @@ public class instructions extends AppCompatActivity {
         @Override
         public void onReceive(Context context, Intent intent) {
 
-            String action = intent.getAction();
+            String action = intent.getStringExtra("leapAction");
 
             switch (action) {
                 case Constants.LEAP_TAP_RELEVANT_VIEW:
@@ -405,6 +408,20 @@ public class instructions extends AppCompatActivity {
 
                     simulateTapOnView(context, intent);
 
+                    break;
+                case Constants.SWIPE_RELEVANT_VIEW:
+                    long timestamp = SystemClock.uptimeMillis();
+
+                    if ((timestamp - lastSwipe) < 2000 ) {
+                        return;
+                    }
+                    String direction = intent.getStringExtra("swipeDirection");
+
+                    if (direction.equals(Constants.LEAP_SWIPE_RIGHT)) {
+                        getPreInstruction();
+                    } else if (direction.equals(Constants.LEAP_SWIPE_LEFT)){
+                        getNextInstruction();
+                    }
                     break;
                 default:
                     break;

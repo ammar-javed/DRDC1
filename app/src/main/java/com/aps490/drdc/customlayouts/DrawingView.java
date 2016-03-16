@@ -52,7 +52,7 @@ public class DrawingView extends SurfaceView
 
     private void doDraw(Canvas canvas, float x, float y) {
         canvas.drawColor(0, android.graphics.PorterDuff.Mode.CLEAR);
-        canvas.drawCircle(x, y, 50, paint);
+        canvas.drawCircle(x, y, 25, paint);
     }
 
     @Override

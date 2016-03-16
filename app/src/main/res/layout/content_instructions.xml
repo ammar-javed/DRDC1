@@ -45,13 +45,13 @@
             android:gravity="center|bottom"
             android:orientation="horizontal" >
 
-            <Button
-                android:id="@+id/buttonInstPre"
-                android:layout_width="145dp"
-                android:layout_height="80dp"
-                android:layout_gravity="bottom"
-                android:text="Previous Instruction"
-                android:onClick="getPreInstruction"/>
+            <!--<Button-->
+                <!--android:id="@+id/buttonInstPre"-->
+                <!--android:layout_width="145dp"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:text="Previous Instruction"-->
+                <!--android:onClick="getPreInstruction"/>-->
 
             <Button
                 android:id="@+id/buttonFigures"
@@ -61,13 +61,13 @@
                 android:text="Figures\r\n"
                 android:onClick="seeFigures"/>
 
-            <Button
-                android:id="@+id/buttonInstNext"
-                android:layout_width="145dp"
-                android:layout_height="80dp"
-                android:layout_gravity="bottom"
-                android:text="Next Instruction"
-                android:onClick="getNextInstruction"/>
+            <!--<Button-->
+                <!--android:id="@+id/buttonInstNext"-->
+                <!--android:layout_width="145dp"-->
+                <!--android:layout_height="80dp"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:text="Next Instruction"-->
+                <!--android:onClick="getNextInstruction"/>-->
 
         </LinearLayout>
 

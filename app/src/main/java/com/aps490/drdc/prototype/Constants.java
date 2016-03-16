@@ -12,7 +12,14 @@ public final class Constants {
             "com.aps490.intent.action.SEND_DIRTY_PAYLOAD";
 
     public static final String LEAP_TAP_RELEVANT_VIEW =
+            "com.aps490.intent.action.TAP_RELEVANT_VIEW";
+
+    public static final String SWIPE_RELEVANT_VIEW =
+            "com.aps490.intent.action.SWIPE_RELEVANT_VIEW";
+
+    public static final String LEAP_INTERACT_RELEVANT_VIEW =
             "com.aps490.intent.action.INTERACT_WITH_RELEVANT_VIEW";
+
     public static final String LEAP_ACTION =
             "com.aps490.intent.action.MESSAGE_PROCESSED";
 
@@ -36,5 +43,11 @@ public final class Constants {
 
     public static final String BLUETOOTH_CONNECTION_RESULT =
             "BT_RESULT";
+
+    public static final String LEAP_SWIPE_RIGHT =
+            "RIGHT";
+
+    public static final String LEAP_SWIPE_LEFT =
+            "LEFT";
 
 }
