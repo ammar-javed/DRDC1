@@ -128,8 +128,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             @Override
             public void onClose(int code, String reason) {
-                Log.d(Constants.TAG, "Connection lost.");
-                reconnect();
+                Log.d(Constants.TAG, "Connection lost. Code:" + code);
+
+                // Do not attempt reconnect if it was a manual disconnect from us.
+                if (code != 3) {
+
+                    try {
+                        Thread.sleep(1000);
+                    } catch (Exception e) {
+                        Log.i(Constants.TAG, "Websocket onClose sleep:", e);
+                    }
+
+                    reconnect();
+                }
             }
 
             private void sendLeapServicePayload(String payload) {
@@ -190,7 +201,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
 
         // Pass in the root activity view as well as context.
-        // TODO: Replace the root view passed in for every activity.
         mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().findViewById(R.id.login_activity));
 
         // Will not process on main thread.
