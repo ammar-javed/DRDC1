@@ -1,7 +1,10 @@
 package com.aps490.drdc.prototype;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
@@ -23,7 +26,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.support.v4.app.DialogFragment;
@@ -45,6 +50,8 @@ public class instructions extends AppCompatActivity {
     ArrayList<String> figures;
     Intent returnIntent;
     Intent intent;
+    Dialog builder;
+    FinishedDialog finishedDialog;
 
     /**
      * Websocket connection
@@ -78,7 +85,7 @@ public class instructions extends AppCompatActivity {
     /**
      * Receives and performs leap tap events
      */
-    LeapTapEventReceiver mLeapTapReceiver;
+    InstructionsLeapTapEventReceiver mLeapTapReceiver;
     IntentFilter mLeapTapFilter;
 
 
@@ -200,7 +207,7 @@ public class instructions extends AppCompatActivity {
         // will run on main thread, so allow access to UI.
         mLeapTapFilter = new IntentFilter(Constants.LEAP_TAP_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mLeapTapReceiver = new LeapTapEventReceiver(this.getApplicationContext());
+        mLeapTapReceiver = new InstructionsLeapTapEventReceiver(this.getApplicationContext());
 
         registerReceiver(mLeapTapReceiver, mLeapTapFilter);
 
@@ -294,14 +301,14 @@ public class instructions extends AppCompatActivity {
     }
 
     public void showImage(String fileName ) {
-        Dialog builder = new Dialog(this);
+        builder = new Dialog(this);
         builder.requestWindowFeature(Window.FEATURE_NO_TITLE);
         builder.getWindow().setBackgroundDrawable(
                 new ColorDrawable(android.graphics.Color.TRANSPARENT));
         builder.setOnDismissListener(new DialogInterface.OnDismissListener() {
             @Override
             public void onDismiss(DialogInterface dialogInterface) {
-                //nothing;
+                builder = null;
             }
         });
 
@@ -325,11 +332,12 @@ public class instructions extends AppCompatActivity {
 
     public void finishPopUp() {
         FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
-        FinishedDialog dialog = new FinishedDialog();
-        dialog.show(ft, "dialog");
+        finishedDialog = new FinishedDialog();
+        finishedDialog.show(ft, "dialog");
     }
 
-    public class FinishedDialog extends DialogFragment {
+    public class FinishedDialog extends DialogFragment implements DialogInterface.OnDismissListener {
+
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
@@ -350,6 +358,12 @@ public class instructions extends AppCompatActivity {
             // Create the AlertDialog object and return it
             return builder.create();
         }
+
+        @Override
+        public void onDismiss(DialogInterface dialog) {
+            finishedDialog = null;
+        }
+
     }
 
     public boolean onOptionsItemSelected(MenuItem menuItem) {
@@ -363,5 +377,74 @@ public class instructions extends AppCompatActivity {
         return (super.onOptionsItemSelected(menuItem));
 
     }
+
+    public class InstructionsLeapTapEventReceiver extends BroadcastReceiver {
+
+        private Context mContext;
+
+        public InstructionsLeapTapEventReceiver(Context context) {
+            super();
+            mContext = context;
+        }
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            String action = intent.getAction();
+
+            switch (action) {
+                case Constants.LEAP_TAP_RELEVANT_VIEW:
+
+                    if (builder != null) {
+                        builder.dismiss();
+                        return;
+                    } else if (finishedDialog != null) {
+                        finishedDialog.dismiss();
+                        return;
+                    }
+
+                    simulateTapOnView(context, intent);
+
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        private void simulateTapOnView(Context context, Intent intent){
+
+            try {
+                int viewID = intent.getIntExtra("viewID", 0);
+                View hitView = ((Activity) context).findViewById(viewID);
+
+                Log.i(Constants.TAG, hitView.getClass().toString());
+
+                if (hitView instanceof ListView) {
+                    int pos = intent.getIntExtra("listPos", -1);
+                    Log.i(Constants.TAG, "List view position: " + pos);
+                    ListView lView = (ListView) hitView;
+                    lView.performItemClick(lView.getAdapter().getView(pos, null, null), pos,
+                            lView.getAdapter().getItemId(pos));
+
+                    return;
+                }
+
+                if (hitView.getClass().equals("android.support.design.widget.TextInputLayout")) {
+                    ((EditText) hitView).requestFocus();
+                } else if (hitView.getClass().equals("com.aps490.drdc.customlayouts.DrawingView")) {
+                    return;
+                } else {
+                    hitView.requestFocus();
+                }
+
+                hitView.performClick();
+
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+    }
+
 
 }
