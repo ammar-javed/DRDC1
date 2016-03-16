@@ -114,8 +114,17 @@ public class LeapActionReceiver extends BroadcastReceiver {
 
                             break;
                         case 2:
-                            x = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(0);
-                            y = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(1);
+                            Double index = pointables.getJSONObject(Constants.FINGER_INDEX).getDouble("length");
+                            Double thumb = pointables.getJSONObject(Constants.FINGER_THUMB).getDouble("length");
+
+                            if (index > thumb) {
+                                x = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(0);
+                                y = pointables.getJSONObject(Constants.FINGER_INDEX).getJSONArray("tipPosition").getDouble(1);
+                            } else {
+                                x = pointables.getJSONObject(Constants.FINGER_THUMB).getJSONArray("tipPosition").getDouble(0);
+                                y = pointables.getJSONObject(Constants.FINGER_THUMB).getJSONArray("tipPosition").getDouble(1);
+                            }
+
                             break;
                         default:
                             break;

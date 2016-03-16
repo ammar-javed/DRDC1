@@ -412,7 +412,7 @@ public class instructions extends AppCompatActivity {
                 case Constants.SWIPE_RELEVANT_VIEW:
                     long timestamp = SystemClock.uptimeMillis();
 
-                    if ((timestamp - lastSwipe) < 2000 ) {
+                    if ((timestamp - lastSwipe) < 4000 ) {
                         return;
                     }
                     String direction = intent.getStringExtra("swipeDirection");
