@@ -36,6 +36,11 @@ public class LeapTapEventReceiver extends BroadcastReceiver {
                 simulateTapOnView(context, intent);
 
                 break;
+            case Constants.LEAP_CIRCLE_RELEVANT_VIEW:
+
+                ((Activity) mContext).finish();
+
+                break;
             default:
                 break;
         }

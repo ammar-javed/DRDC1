@@ -146,7 +146,7 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
         mLeapProcessFilter.addCategory(Intent.CATEGORY_DEFAULT);
 
         // Pass in the root activity view as well as context.
-        mReceiver = new LeapActionReceiver(this.getApplicationContext(), this.getWindow().getDecorView().getRootView());
+        mReceiver = new LeapActionReceiver(this, this.getWindow().getDecorView().getRootView());
 
         // Will not process on main thread.
         registerReceiver(mReceiver, mLeapProcessFilter, null, mHandler);
@@ -155,7 +155,7 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
         // will run on main thread, so allow access to UI.
         mLeapTapFilter = new IntentFilter(Constants.LEAP_INTERACT_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mLeapTapReceiver = new LeapTapEventReceiver(this.getApplicationContext());
+        mLeapTapReceiver = new LeapTapEventReceiver(this);
 
         registerReceiver(mLeapTapReceiver, mLeapTapFilter);
 

@@ -200,7 +200,7 @@ public class instructions extends AppCompatActivity {
         // will run on main thread, so allow access to UI.
         mLeapTapFilter = new IntentFilter(Constants.LEAP_INTERACT_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mLeapTapReceiver = new InstructionsLeapTapEventReceiver(this.getApplicationContext());
+        mLeapTapReceiver = new InstructionsLeapTapEventReceiver(this);
 
         registerReceiver(mLeapTapReceiver, mLeapTapFilter);
 
@@ -371,6 +371,10 @@ public class instructions extends AppCompatActivity {
 
     }
 
+    void goBack(){
+        this.finish();
+    }
+
     public class InstructionsLeapTapEventReceiver extends BroadcastReceiver {
 
         private Context mContext;
@@ -431,7 +435,7 @@ public class instructions extends AppCompatActivity {
                     closed = checkAndCloseDialogs();
 
                     if (!closed)
-                        //((Activity) mContext).finish();
+                        goBack();
 
                     break;
                 default:

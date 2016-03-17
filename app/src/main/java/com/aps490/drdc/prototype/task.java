@@ -169,7 +169,7 @@ public class task extends AppCompatActivity implements AdapterView.OnItemClickLi
         // will run on main thread, so allow access to UI.
         mLeapTapFilter = new IntentFilter(Constants.LEAP_INTERACT_RELEVANT_VIEW);
         mLeapTapFilter.addCategory(Intent.CATEGORY_DEFAULT);
-        mLeapTapReceiver = new LeapTapEventReceiver(this.getApplicationContext());
+        mLeapTapReceiver = new LeapTapEventReceiver(this);
 
         registerReceiver(mLeapTapReceiver, mLeapTapFilter);
     }
