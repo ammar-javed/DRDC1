@@ -167,7 +167,9 @@ public class LeapActionReceiver extends BroadcastReceiver {
                                         norm_point.x, norm_point.y, 0);
                                 e.setSource(0x00002002);
                                 surface.dispatchGenericMotionEvent(e);
-                                hit = false;
+
+                                if (pointables.length() == 1)
+                                    hit = false;
                             }
                         }
                     }
@@ -195,7 +197,7 @@ public class LeapActionReceiver extends BroadcastReceiver {
                                 Intent swipeIntent = new Intent();
                                 swipeIntent.setAction(Constants.LEAP_INTERACT_RELEVANT_VIEW);
                                 swipeIntent.addCategory(Intent.CATEGORY_DEFAULT);
-                                swipeIntent.putExtra("leapAction", Constants.SWIPE_RELEVANT_VIEW);
+                                swipeIntent.putExtra("leapAction", Constants.LEAP_SWIPE_RELEVANT_VIEW);
 
                                 if (swipeDirectionX > 0) {
                                     swipeIntent.putExtra("swipeDirection", Constants.LEAP_SWIPE_RIGHT);
@@ -250,6 +252,19 @@ public class LeapActionReceiver extends BroadcastReceiver {
                             Log.e(Constants.TAG, "Error in Gestures (Tap): ", e);
                         }
 */
+
+                        break;
+                    case "circle":
+
+                        String state = gesture.getString("state");
+                        if (state.equals("stop")) {
+                            Intent circleIntent = new Intent();
+                            circleIntent.setAction(Constants.LEAP_INTERACT_RELEVANT_VIEW);
+                            circleIntent.addCategory(Intent.CATEGORY_DEFAULT);
+                            circleIntent.putExtra("leapAction", Constants.LEAP_CIRCLE_RELEVANT_VIEW);
+                            context.sendBroadcast(circleIntent);
+
+                        }
 
                         break;
                     default:

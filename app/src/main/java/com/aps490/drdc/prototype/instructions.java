@@ -11,14 +11,11 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.ColorDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.HandlerThread;
 import android.os.Looper;
 import android.os.SystemClock;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -102,11 +99,6 @@ public class instructions extends AppCompatActivity {
         System.out.println("Acquired intent values.");
 
         setContentView(R.layout.activity_instructions);
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-
-        getSupportActionBar().setHomeButtonEnabled(true);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         /**
          * Set up websocket to listen to leapmotion.
@@ -343,7 +335,7 @@ public class instructions extends AppCompatActivity {
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the Builder class for convenient dialog construction
             AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-            builder.setMessage(R.string.finishPopUp)
+            builder.setMessage( R.string.finishPopUp)
                     .setPositiveButton(R.string.finish, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int id) {
                             // Launch main menu activity
@@ -394,38 +386,69 @@ public class instructions extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
 
             String action = intent.getStringExtra("leapAction");
+            Boolean closed;
 
             switch (action) {
                 case Constants.LEAP_TAP_RELEVANT_VIEW:
 
-                    if (builder != null) {
-                        builder.dismiss();
-                        return;
-                    } else if (finishedDialog != null) {
-                        finishedDialog.dismiss();
-                        return;
-                    }
+                    closed = checkAndCloseDialogs();
 
-                    simulateTapOnView(context, intent);
+                    if (!closed)
+                        simulateTapOnView(context, intent);
 
                     break;
-                case Constants.SWIPE_RELEVANT_VIEW:
+                case Constants.LEAP_SWIPE_RELEVANT_VIEW:
                     long timestamp = SystemClock.uptimeMillis();
 
-                    if ((timestamp - lastSwipe) < 4000 ) {
-                        return;
+                    if ((timestamp - lastSwipe) < 1000 ) {
+                        break;
                     }
                     String direction = intent.getStringExtra("swipeDirection");
 
                     if (direction.equals(Constants.LEAP_SWIPE_RIGHT)) {
+
+                        if (finishedDialog != null) {
+                            finishedDialog.dismiss();
+                        }
+
+
                         getPreInstruction();
                     } else if (direction.equals(Constants.LEAP_SWIPE_LEFT)){
+
+                        if (finishedDialog != null) {
+                            returnIntent = new Intent(mContext, listView.class);
+                            startActivity(returnIntent);
+                        }
+
                         getNextInstruction();
                     }
+
+                    lastSwipe = timestamp;
+
+                    break;
+                case Constants.LEAP_CIRCLE_RELEVANT_VIEW:
+
+                    closed = checkAndCloseDialogs();
+
+                    if (!closed)
+                        //((Activity) mContext).finish();
+
                     break;
                 default:
                     break;
             }
+        }
+
+        private Boolean checkAndCloseDialogs(){
+
+            if (builder != null) {
+                builder.dismiss();
+                return true;
+            } else if (finishedDialog != null) {
+                finishedDialog.dismiss();
+                return true;
+            }
+            return false;
         }
 
         private void simulateTapOnView(Context context, Intent intent){

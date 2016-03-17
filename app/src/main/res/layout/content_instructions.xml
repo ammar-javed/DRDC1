@@ -38,16 +38,14 @@
             android:layout_weight="0"
             android:textColor="@color/white"/>
 
-
-            <Button
-                android:id="@+id/buttonFigures"
-                android:layout_height="50dp"
-                android:layout_width="wrap_content"
-                android:layout_gravity="center|bottom"
-                android:layout_weight="1"
-                android:text="Figures\r\n"
-                android:onClick="seeFigures"/>
-
+        <Button
+            android:id="@+id/buttonFigures"
+            android:layout_height="50dp"
+            android:layout_width="100dp"
+            android:layout_gravity="center|bottom"
+            android:text="Figures"
+            android:onClick="seeFigures"/>
 
     </LinearLayout>
+
 </RelativeLayout>

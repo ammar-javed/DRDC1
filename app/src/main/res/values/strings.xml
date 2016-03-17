@@ -12,7 +12,7 @@
     <!-- Debug -->
     <string name="debug_tag">AMMAR</string>
 
-    <string name="leap_endpoint">ws://100.64.193.2:8889</string>
+    <string name="leap_endpoint">ws://100.65.93.94:8889</string>
 
     <!-- Strings related to login -->
     <string name="prompt_email">Email</string>
@@ -65,7 +65,7 @@
     <string name="title_activity_list_view">listView</string>
     <string name="title_activity_task">task</string>
     <string name="title_activity_instructions">instructions</string>
-    <string name="finishPopUp">Congratulations, you have completed this assembly!</string>
+    <string name="finishPopUp">Congratulations, you have completed this assembly! \n\n\ Swipe Left:\n to go back to the Main Menu \n\n Swipe Right:\n to Keep Working.</string>
     <string name="finish">Main Menu</string>
     <string name="back">Keep working</string>
 

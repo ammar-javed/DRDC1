@@ -14,8 +14,11 @@ public final class Constants {
     public static final String LEAP_TAP_RELEVANT_VIEW =
             "com.aps490.intent.action.TAP_RELEVANT_VIEW";
 
-    public static final String SWIPE_RELEVANT_VIEW =
+    public static final String LEAP_SWIPE_RELEVANT_VIEW =
             "com.aps490.intent.action.SWIPE_RELEVANT_VIEW";
+
+    public static final String LEAP_CIRCLE_RELEVANT_VIEW =
+            "com.aps490.intent.action.CIRCLE_RELEVANT_VIEW";
 
     public static final String LEAP_INTERACT_RELEVANT_VIEW =
             "com.aps490.intent.action.INTERACT_WITH_RELEVANT_VIEW";
