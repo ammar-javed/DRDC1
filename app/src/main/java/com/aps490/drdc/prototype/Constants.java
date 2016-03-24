@@ -23,6 +23,12 @@ public final class Constants {
     public static final String LEAP_INTERACT_RELEVANT_VIEW =
             "com.aps490.intent.action.INTERACT_WITH_RELEVANT_VIEW";
 
+    public static final String MS_BAND_EVENT =
+            "com.aps490.intent.action.MS_BAND_EVENT";
+
+    public static final String MS_BAND_UPDATE_HEARTRATE =
+            "com.aps490.intent.action.UPDATE_HEART_RATE";
+
     public static final String LEAP_ACTION =
             "com.aps490.intent.action.MESSAGE_PROCESSED";
 

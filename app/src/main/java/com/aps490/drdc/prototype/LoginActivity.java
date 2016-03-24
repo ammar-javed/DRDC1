@@ -477,7 +477,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
     public void sendMessage(){
         //Do something in response to button
-        Intent intent = new Intent(this, ModuleSelection.class);
+        Intent intent = new Intent(this, listView.class);
         EditText editText_user = (EditText) findViewById(R.id.email);
         EditText editText_password = (EditText) findViewById(R.id.password);
 

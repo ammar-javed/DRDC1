@@ -20,18 +20,37 @@
         android:orientation="vertical"
         android:background="@color/black">
 
-        <TextView
-            android:id="@+id/textViewInstrCount"
-            android:text="deneme"
-            android:layout_width="fill_parent"
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/db2_root"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:layout_weight="0"
-            android:textColor="@color/red"/>
+            android:weightSum="2"
+            android:orientation="horizontal"
+            android:background="@color/black">
+
+            <TextView
+                android:id="@+id/textViewInstrCount"
+                android:text="Instruction count not loaded"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/red"/>
+
+            <TextView
+                android:id="@+id/textViewHeartRate"
+                android:text="Heart Rate Not Loaded"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:textColor="@color/darkblue"/>
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewInst"
-            android:text="deneme"
+            android:text="First Instruction not loaded"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:gravity="center"

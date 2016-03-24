@@ -1,5 +1,8 @@
 package com.aps490.drdc.prototype;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.res.Resources;
@@ -9,6 +12,8 @@ import android.os.HandlerThread;
 import android.os.Looper;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
@@ -18,6 +23,7 @@ import android.widget.Adapter;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.aps490.drdc.LeapMotion.LeapActionReceiver;
 import com.aps490.drdc.LeapMotion.LeapTapEventReceiver;
@@ -172,10 +178,18 @@ public class listView extends AppCompatActivity implements AdapterView.OnItemCli
     }
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (values[position] != "Test Table Assembly") {
+            noAccessPopUp();
+            return;
+        }
         Intent intent = new Intent(this, task.class);
         intent.putExtra("name", values[position]);
         startActivity(intent);
 
+    }
+
+    public void noAccessPopUp() {
+        Toast.makeText(getApplicationContext(), "Access Denied", Toast.LENGTH_SHORT).show();
     }
 
     /**
